@@ -1,13 +1,54 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    margin: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+    height: 100vh;
+    background: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.mathi_div{
+    background: gold; 
+    flex: 12; 
+    display: flex;
+}
+
+.sidenav{
+    background-color: #111;; 
+    flex: 2;
+}
+
+a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+}
+  
+:hover {
+    color: #f1f1f1;
+}
+
+.traffic {
+    background: #eee; 
+    flex: 5;
+    color: black;
+}
+
+.charts {
+    background: #fff; 
+    flex: 5;
+    color: black;
+}
+
+.tala_div{
+    background: black; flex: 1;
+}
+
+.material-symbols-outlined{
+    color: white;
+    font-size:60px;
 }
