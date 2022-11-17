@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        table td{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" accept=".csv" id="picker">
+
+    <table id="table">
+
+    </table>
+    <script>
+        window.onload=()=>{
+            //file reader + html elements
+            var reader=new FileReader(),
+            picker = document.getElementById('picker'),
+            table= document.getElementById("table");
+
+            //read csv on pick
+            picker.onchange=()=>{
+                reader.readAsText(picker.files[0])
+            }
+
+            //read the csv file & generate HTML
+            reader.onloadend=()=>{
+                //entire csv file
+                let csv = reader.result;
+                
+                //clear html table incase if there is previous file selected
+                table.innerHTML="";
+
+                //split into rows
+                let rows=csv.split("\r\n");
+                // console.log(rows)
+              
+                //loop throught rows + split columns
+                for(let row of rows){
+                    let cols=row.match(/(?:\"([^\"]*(?:\"\"[^\"]*)*)\")|([^\",]+)/g);
+                    if (cols!=null){
+                        let tr = table.insertRow();
+                        for(let col of cols){
+                            let td= tr.insertCell();
+                            td.innerHTML = col;
+                        }
+                    }
+                }
+            };
+
+        }
+    </script>
+</body>
+</html>

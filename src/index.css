@@ -1,7 +1,15 @@
+
 * {
     margin: 0;
 }
 
+table{
+    border-collapse: collapse;
+}
+
+td{
+    border: 1px solid black;
+}
 .container {
     height: 100vh;
     background: red;
