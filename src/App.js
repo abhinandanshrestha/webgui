@@ -1,6 +1,6 @@
 import Sidenav from './components/Sidenav';
 import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
-import Histogram from './components/Histogram';
+import StackedAreaChart from './components/StackedAreaChart';
 // import Timeseries from './components/Timeseries';
 import Traffic from './components/Traffic';
 import Alert from './components/Alert';
@@ -14,7 +14,7 @@ function App() {
           <Sidenav/>  
           <Traffic/>
           <Routes>
-            <Route exact path="/" element={<Histogram/>}/>
+            <Route exact path="/" element={<StackedAreaChart/>}/>
             <Route exact path="/timeseries" element={<Timeseries/>}/>
           </Routes>
         </div>

@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .container {
@@ -17,6 +18,7 @@
 
 .sidenav{
     background-color: #111;
+    max-width: 250px;
     flex: 2;
 }
 
@@ -35,7 +37,7 @@ a {
 .traffic {
     background: #eee; 
     flex: 5;
-    max-width: 50%;
+    max-width: 40%;
     min-height: 100%;
     color: black;
 }
@@ -43,12 +45,15 @@ a {
 .charts {
     background: #fff; 
     flex: 5;
-    max-width: 40%;
+    /* max-width: 40%; */
     color: black;
+}
+.plots{
+    margin-top: 50px;
 }
 
 .tala_div{
-    background: black; flex: 1;
+    background: rgb(41, 41, 41); flex: 1;
 }
 
 .material-symbols-outlined{
