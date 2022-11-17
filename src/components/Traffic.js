@@ -4,14 +4,16 @@ import MaterialReactTable from "material-react-table";
 
 export default function Traffic() {
     const [data, setData] = useState([]);
+    const [cols, setCols] = useState([]);
+    const columns = useMemo(() => cols, [cols]);
 
     const fetchData = () => {
         fetch("http://localhost:5000/data")
             .then((res) => res.json())
             .then((data) => JSON.parse(data))
-            .then((data) => {
-                console.log(data);
+            .then(({ data, columns }) => {
                 setData(data);
+                setCols(columns);
             })
             .catch((err) => {
                 console.log(err.message);
@@ -21,28 +23,6 @@ export default function Traffic() {
     useEffect(() => {
         fetchData();
     }, []);
-
-    const columns = useMemo(
-        () => [
-            {
-                accessorKey: "a.x",
-                header: "a->x",
-            },
-            {
-                accessorKey: "a.y",
-                header: "a->y",
-            },
-            {
-                accessorKey: "b",
-                header: "b",
-            },
-            {
-                accessorKey: "c",
-                header: "c",
-            },
-        ],
-        []
-    );
 
     return (
         <div className="traffic">
