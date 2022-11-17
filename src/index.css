@@ -43,7 +43,7 @@ a {
 }
 
 .charts {
-    background: #fff; 
+    background: white; 
     flex: 5;
     /* max-width: 40%; */
     color: black;

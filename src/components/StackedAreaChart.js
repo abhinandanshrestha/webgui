@@ -26,13 +26,13 @@ function StackedAreaChart() {
     <div className='charts'>
       <div className="plots">
         <AreaChart
-            width={10000}
+            width={850}
             height={700}
             data={data}
             margin={{
               top: 20,
               right: 30,
-              left: 30,
+              left: 40,
               bottom: 0,
             }}
           >
