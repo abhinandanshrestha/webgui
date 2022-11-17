@@ -26,8 +26,11 @@ export default function Traffic() {
 
     return (
         <div className="traffic">
-            Traffic
-            {data && <MaterialReactTable columns={columns} data={data} />}
+            {data && <MaterialReactTable columns={columns} data={data} options={{
+        paging:true,
+        pageSize:12,       // make initial page size
+        emptyRowsWhenPaging: false,   // To avoid of having empty rows  
+      }}/>}
         </div>
     );
 }
