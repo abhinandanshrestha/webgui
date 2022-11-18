@@ -30,9 +30,9 @@ a {
     display: block;
 }
   
-:hover {
+/* :hover {
     color: #f1f1f1;
-}
+} */
 
 .traffic {
     background: #eee; 
@@ -40,6 +40,7 @@ a {
     max-width: 40%;
     min-height: 100%;
     color: black;
+    overflow: scroll;
 }
 
 .charts {

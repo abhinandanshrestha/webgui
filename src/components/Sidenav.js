@@ -5,7 +5,7 @@ function Sidenav() {
   return (
 
         <div className="sidenav">
-            <center><span class="material-symbols-outlined">
+            <center><span className="material-symbols-outlined">
                 signal_cellular_alt
                 </span></center>
             <Link to="/">Histogram</Link>

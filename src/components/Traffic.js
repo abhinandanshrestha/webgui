@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMemo } from "react";
-import MaterialReactTable from "material-react-table";
+import MaterialTable from "material-react-table";
 
 export default function Traffic() {
     const [data, setData] = useState([]);
@@ -11,9 +11,12 @@ export default function Traffic() {
         fetch("http://localhost:5000/data")
             .then((res) => res.json())
             .then((data) => JSON.parse(data))
-            .then(({ data, columns }) => {
-                setData(data);
-                setCols(columns);
+            .then(({ data, columns, fileChanged }) => {
+                console.log(fileChanged);
+                if (fileChanged) {
+                    setData(data);
+                    setCols(columns);
+                }
             })
             .catch((err) => {
                 console.log(err.message);
@@ -21,16 +24,24 @@ export default function Traffic() {
     };
 
     useEffect(() => {
-        fetchData();
+        setInterval(fetchData, 5000);
     }, []);
 
     return (
         <div className="traffic">
-            {data && <MaterialReactTable columns={columns} data={data} options={{
-        paging:true,
-        pageSize:12,       // make initial page size
-        emptyRowsWhenPaging: false,   // To avoid of having empty rows  
-      }}/>}
+            {data && (
+                <MaterialTable
+                    columns={columns}
+                    data={data}
+                    paging={false}
+                    enableStickyHeader
+                    options={{
+                        paging: true,
+                        pageSize: 12, // make initial page size
+                        emptyRowsWhenPaging: false, // To avoid of having empty rows
+                    }}
+                />
+            )}
         </div>
     );
 }
