@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useMemo } from "react";
 import MaterialTable from "material-react-table";
+import io from 'socket.io-client';
+const serverIp="http://localhost:3001";
+const socket=io.connect(serverIp);
 
 export default function Traffic() {
     const [data, setData] = useState([]);
@@ -8,23 +11,14 @@ export default function Traffic() {
     const columns = useMemo(() => cols, [cols]);
 
     const fetchData = () => {
-        fetch("http://localhost:5000/data")
-            .then((res) => res.json())
-            .then((data) => JSON.parse(data))
-            .then(({ data, columns, fileChanged }) => {
-                console.log(fileChanged);
-                if (fileChanged) {
-                    setData(data);
-                    setCols(columns);
-                }
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        socket.on("sent from the server",(data,columns)=>{
+            setData(data);
+            setCols(columns);
+          })
     };
 
     useEffect(() => {
-        setInterval(fetchData, 5000);
+        fetchData();
     }, []);
 
     return (
