@@ -18,8 +18,43 @@
 
 .sidenav{
     background-color: #111;
-    max-width: 250px;
+    max-width: 200px;
+    min-width: 200px;
+    width: 200px;
     flex: 2;
+}
+
+.form{
+    flex:10;
+    background-color: white;
+    padding-top: 130px;
+    padding-left: 40px;
+}
+.form input{
+    width: 110px;
+    margin: 2px;
+    padding: 10px;
+}
+
+.form-submit-button {
+	background: #ff2525;
+	color: #fff;
+	border: 1px solid #eee;
+	border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+	box-shadow: 5px 5px 5px #eee;
+	text-shadow: none;
+    padding: 10px;
+    transition: 400ms ease;
+}
+
+.form-submit-button:hover {
+	background: #ff5151;
+	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 20px;
+	box-shadow: 5px 5px 5px #eee;
+	text-shadow: none;
 }
 
 a {
@@ -29,6 +64,7 @@ a {
     color: #818181;
     display: block;
 }
+
   
 /* :hover {
     color: #f1f1f1;
