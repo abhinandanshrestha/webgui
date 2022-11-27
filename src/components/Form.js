@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-
 function Form() {
 
   
@@ -98,7 +97,7 @@ function Form() {
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log(formData);
-    fetch('http://localhost:3001/post', {  
+    fetch('http://localhost:3001/formpost', {  
       method: 'POST', 
       headers: { "Content-Type": "application/json"},
       mode: 'cors', 
@@ -107,6 +106,20 @@ function Form() {
     // console.log(JSON.stringify(record))
   }
 
+  const handleUpload=(e)=>{
+    e.preventDefault();
+    const csvData = new FormData();
+    csvData.append('file',e.target.files[0]);
+    // console.log(csvData);
+    fetch("http://localhost:3001/csvpost",{
+        method: 'POST',
+        headers: {
+          ContentType: 'multipart/form-data'
+        },
+        mode: 'cors',
+        body: csvData
+      }); 
+    }
 
   return (
     <div className="form">
@@ -197,7 +210,9 @@ function Form() {
             <br/><br/>
             <center><button className="form-submit-button" type='submit'>Submit</button></center>
         </form>
+        <br/>
 
+        Upload your csv: <input type ="file" onChange={handleUpload} name="file" accept=".csv"/><br/>
 
     </div>
   )
