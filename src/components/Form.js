@@ -86,7 +86,7 @@ function Form() {
     subflow_bwd_byts:""
   });
   
-  const [record,setRecord]=useState([]);
+  // const [record,setRecord]=useState([]);
 
   const handleFormData=(e)=>{
     const name=e.target.name;
@@ -97,13 +97,12 @@ function Form() {
   
   const handleSubmit = (e)=>{
     e.preventDefault();
-    setRecord(formData);
-    console.log(record);
+    console.log(formData);
     fetch('http://localhost:3001/post', {  
       method: 'POST', 
       headers: { "Content-Type": "application/json"},
       mode: 'cors', 
-      body: JSON.stringify(record) // body data type must match "Content-Type" header
+      body: JSON.stringify(formData) // body data type must match "Content-Type" header
     }).then(()=>console.log('record sent to the backend'))
     // console.log(JSON.stringify(record))
   }
