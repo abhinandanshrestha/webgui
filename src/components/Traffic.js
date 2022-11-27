@@ -27,7 +27,9 @@ export default function Traffic() {
                 <MaterialTable
                     columns={columns}
                     data={data}
-                    paging={false}
+                    // paging={false}
+                    enablePagination={false}
+                    // muiTablePaginationProps={false}
                     enableStickyHeader
                     options={{
                         paging: true,
