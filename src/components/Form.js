@@ -1,221 +1,165 @@
-import React,{useState} from 'react';
+import React, { useState } from "react";
 function Form() {
+    const cols = [
+        "Destination_Port",
+        "Flow_Duration",
+        "Total_Fwd_Packets",
+        "Total_Backward_Packets",
+        "Total_Length_of_Fwd_Packets",
+        "Total_Length_of_Bwd_Packets",
+        "Fwd_Packet_Length_Max",
+        "Fwd_Packet_Length_Min",
+        "Fwd_Packet_Length_Mean",
+        "Fwd_Packet_Length_Std",
+        "Bwd_Packet_Length_Max",
+        "Bwd_Packet_Length_Min",
+        "Bwd_Packet_Length_Mean",
+        "Bwd_Packet_Length_Std",
+        "Flow_Bytes/s",
+        "Flow_Packets/s",
+        "Flow_IAT_Mean",
+        "Flow_IAT_Std",
+        "Flow_IAT_Max",
+        "Flow_IAT_Min",
+        "Fwd_IAT_Total",
+        "Fwd_IAT_Mean",
+        "Fwd_IAT_Std",
+        "Fwd_IAT_Max",
+        "Fwd_IAT_Min",
+        "Bwd_IAT_Total",
+        "Bwd_IAT_Mean",
+        "Bwd_IAT_Std",
+        "Bwd_IAT_Max",
+        "Bwd_IAT_Min",
+        "Fwd_PSH_Flags",
+        "Bwd_PSH_Flags",
+        "Fwd_URG_Flags",
+        "Bwd_URG_Flags",
+        "Fwd_Header_Length",
+        "Bwd_Header_Length",
+        "Fwd_Packets/s",
+        "Bwd_Packets/s",
+        "Min_Packet_Length",
+        "Max_Packet_Length",
+        "Packet_Length_Mean",
+        "Packet_Length_Std",
+        "Packet_Length_Variance",
+        "FIN_Flag_Count",
+        "SYN_Flag_Count",
+        "RST_Flag_Count",
+        "PSH_Flag_Count",
+        "ACK_Flag_Count",
+        "URG_Flag_Count",
+        "CWE_Flag_Count",
+        "ECE_Flag_Count",
+        "Down/Up_Ratio",
+        "Average_Packet_Size",
+        "Avg_Fwd_Segment_Size",
+        "Avg_Bwd_Segment_Size",
+        "Fwd_Avg_Bytes/Bulk",
+        "Fwd_Avg_Packets/Bulk",
+        "Fwd_Avg_Bulk_Rate",
+        "Bwd_Avg_Bytes/Bulk",
+        "Bwd_Avg_Packets/Bulk",
+        "Bwd_Avg_Bulk_Rate",
+        "Subflow_Fwd_Packets",
+        "Subflow_Fwd_Bytes",
+        "Subflow_Bwd_Packets",
+        "Subflow_Bwd_Bytes",
+        "Init_Win_bytes_forward",
+        "Init_Win_bytes_backward",
+        "act_data_pkt_fwd",
+        "min_seg_size_forward",
+        "Active_Mean",
+        "Active_Std",
+        "Active_Max",
+        "Active_Min",
+        "Idle_Mean",
+        "Idle_Std",
+        "Idle_Max",
+        "Idle_Min",
+        "Label",
+    ];
 
-  
-  const [formData, setFormData] = useState({
-    src_ip: "",
-    dst_ip: "",
-    src_port: "",
-    dst_port: "",
-    protocol: "",
-    timestamp: "",
-    flow_duration: "",
-    flow_byts_s: "",
-    flow_pkts_s: "",
-    fwd_pkts_s: "",
-    bwd_pkts_s: "",
-    tot_fwd_pkts: "",
-    tot_bwd_pkts: "",
-    totlen_fwd_pkts: "",
-    totlen_bwd_pkts: "",
-    fwd_pkt_len_max: "",
-    fwd_pkt_len_min: "",
-    fwd_pkt_len_mean: "",
-    fwd_pkt_len_std: "",
-    bwd_pkt_len_max: "",
-    bwd_pkt_len_mean: "",
-    bwd_pkt_len_std: "",
-    pkt_len_max: "",
-    pkt_len_min: "",
-    pkt_len_mean: "",
-    pkt_len_std: "",
-    pkt_len_var: "",
-    fwd_header_len: "",
-    bwd_header_len: "",
-    fwd_seg_size_min: "",
-    fwd_act_data_pkts: "",
-    flow_iat_mean: "",
-    flow_iat_max: "",
-    flow_iat_min: "",
-    flow_iat_std: "",
-    fwd_iat_tot: "",
-    fwd_iat_max: "",
-    fwd_iat_min: "",
-    fwd_iat_mean: "",
-    fwd_iat_std: "",
-    bwd_iat_tot: "",
-    bwd_iat_max: "",
-    bwd_iat_min: "",
-    bwd_iat_mean: "",
-    bwd_iat_std: "",
-    fwd_psh_flags: "",
-    bwd_psh_flags: "",
-    fwd_urg_flags: "",
-    bwd_urg_flags: "",
-    fin_flag_cnt: "",
-    syn_flag_cnt: "",
-    rst_flag_cnt: "",
-    psh_flag_cnt: "",
-    ack_flag_cnt: "",
-    urg_flag_cnt: "",
-    ece_flag_cnt: "",
-    down_up_ratio: "",
-    pkt_size_avg: "",
-    init_fwd_win_byts: "",
-    init_bwd_win_byts: "",
-    active_max: "",
-    active_min: "",
-    active_mean: "",
-    active_std: "",
-    idle_max: "",
-    idle_min: "",
-    idle_std: "",
-    fwd_byts_b_avg: "",
-    fwd_pkts_b_avg: "",
-    bwd_byts_b_avg: "",
-    bwd_pkts_b_avg: "",
-    fwd_blk_rate_avg: "",
-    bwd_blk_rate_avg: "",
-    fwd_seg_size_avg: "",
-    bwd_seg_size_avg: "",
-    cwe_flag_count: "",
-    subflow_fwd_pkts: "",
-    subflow_bwd_pkts: "",
-    subflow_fwd_byts: "",
-    subflow_bwd_byts:""
-  });
-  
-  // const [record,setRecord]=useState([]);
+    let fd = {};
+    cols.forEach((col) => {
+        fd[col] = "";
+    });
 
-  const handleFormData=(e)=>{
-    const name=e.target.name;
-    const value=e.target.value;
-    setFormData({ ...formData, [name]:value });
-    console.log(name,value);
-  }
-  
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log(formData);
-    fetch('http://localhost:3001/formpost', {  
-      method: 'POST', 
-      headers: { "Content-Type": "application/json"},
-      mode: 'cors', 
-      body: JSON.stringify(formData) // body data type must match "Content-Type" header
-    }).then(()=>console.log('record sent to the backend'))
-    // console.log(JSON.stringify(record))
-  }
+    const [formData, setFormData] = useState(fd);
 
-  const handleUpload=(e)=>{
-    e.preventDefault();
-    const csvData = new FormData();
-    csvData.append('file',e.target.files[0]);
-    // console.log(csvData);
-    fetch("http://localhost:3001/csvpost",{
-        method: 'POST',
-        headers: {
-          ContentType: 'multipart/form-data'
-        },
-        mode: 'cors',
-        body: csvData
-      }); 
-    }
+    const handleFormData = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormData({ ...formData, [name]: value });
+        console.log(name, value);
+    };
 
-  return (
-    <div className="form">
-        <center><h3>Test your data</h3></center><br/>
-        <form  onSubmit={handleSubmit}>
-            <input type="text" placeholder='src_ip' name="src_ip" value={formData.src_ip} onChange={handleFormData}/>
-            <input type="text" placeholder='dst_ip' name="dst_ip" value={formData.dst_ip} onChange={handleFormData}/>
-            <input type="text" placeholder='src_port' name="src_port" value={formData.src_port} onChange={handleFormData}/>
-            <input type="text" placeholder='dst_port' name="dst_port" value={formData.dst_port} onChange={handleFormData} />
-            <input type="text" placeholder='protocol' name="protocol" value={formData.protocol} onChange={handleFormData}/>
-            <input type="text" placeholder='timestamp' name="timestamp" value={formData.timestamp} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_duration' name="flow_duration" value={formData.flow_duration} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_byts_s' name="flow_byts_s" value={formData.flow_byts_s} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_pkts_s' name="flow_pkts_s" value={formData.flow_pkts_s} onChange={handleFormData} />
-            <input type="text" placeholder='fwd_pkts_s' name="fwd_pkts_s" value={formData.fwd_pkts_s} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_pkts_s' name="bwd_pkts_s" value={formData.bwd_pkts_s} onChange={handleFormData}/>
-            <input type="text" placeholder='tot_fwd_pkts' name="tot_fwd_pkts" value={formData.tot_fwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='tot_bwd_pkts' name="tot_bwd_pkts" value={formData.tot_bwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='totlen_fwd_pkts' name="totlen_fwd_pkts" value={formData.totlen_fwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='totlen_bwd_pkts' name="totlen_bwd_pkts" value={formData.totlen_bwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_pkt_len_max' name="fwd_pkt_len_max" value={formData.fwd_pkt_len_max} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_pkt_len_min' name="fwd_pkt_len_min" value={formData.fwd_pkt_len_min} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_pkt_len_mean' name="fwd_pkt_len_mean" value={formData.fwd_pkt_len_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_pkt_len_std' name="fwd_pkt_len_std" value={formData.fwd_pkt_len_std} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_pkt_len_max' name="bwd_pkt_len_max" value={formData.bwd_pkt_len_max} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_pkt_len_mean' name="bwd_pkt_len_mean" value={formData.bwd_pkt_len_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_pkt_len_std' name="bwd_pkt_len_std" value={formData.bwd_pkt_len_std} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_len_max' name="pkt_len_max" value={formData.pkt_len_max} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_len_min' name="pkt_len_min" value={formData.pkt_len_min} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_len_mean' name="pkt_len_mean" value={formData.pkt_len_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_len_std' name="pkt_len_std" value={formData.pkt_len_std} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_len_var' name="pkt_len_var" value={formData.pkt_len_var} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_header_len' name="fwd_header_len" value={formData.fwd_header_len} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_header_len' name="bwd_header_len" value={formData.bwd_header_len} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_seg_size_min' name="fwd_seg_size_min" value={formData.fwd_seg_size_min} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_act_data_pkts' name="fwd_act_data_pkts" value={formData.fwd_act_data_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_iat_mean' name="flow_iat_mean" value={formData.flow_iat_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_iat_max' name="flow_iat_max" value={formData.flow_iat_max} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_iat_min' name="flow_iat_min" value={formData.flow_iat_min} onChange={handleFormData}/>
-            <input type="text" placeholder='flow_iat_std' name="flow_iat_std" value={formData.flow_iat_std} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_iat_tot' name="fwd_iat_tot" value={formData.fwd_iat_tot} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_iat_max' name="fwd_iat_max" value={formData.fwd_iat_max} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_iat_min' name="fwd_iat_min" value={formData.fwd_iat_min} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_iat_mean' name="fwd_iat_mean" value={formData.fwd_iat_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_iat_std' name="fwd_iat_std" value={formData.fwd_iat_std} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_iat_tot' name="bwd_iat_tot" value={formData.bwd_iat_tot} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_iat_max' name="bwd_iat_max" value={formData.bwd_iat_max} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_iat_min' name="bwd_iat_min" value={formData.bwd_iat_min} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_iat_mean' name="bwd_iat_mean" value={formData.bwd_iat_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_iat_std' name="bwd_iat_std" value={formData.bwd_iat_std} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_psh_flags' name="fwd_psh_flags" value={formData.fwd_psh_flags} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_psh_flags' name="bwd_psh_flags" value={formData.bwd_psh_flags} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_urg_flags' name="fwd_urg_flags" value={formData.fwd_urg_flags} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_urg_flags' name="bwd_urg_flags" value={formData.bwd_urg_flags} onChange={handleFormData}/>
-            <input type="text" placeholder='fin_flag_cnt' name="fin_flag_cnt" value={formData.fin_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='syn_flag_cnt' name="syn_flag_cnt" value={formData.syn_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='rst_flag_cnt' name="rst_flag_cnt" value={formData.rst_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='psh_flag_cnt' name="psh_flag_cnt" value={formData.psh_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='ack_flag_cnt' name="ack_flag_cnt" value={formData.ack_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='urg_flag_cnt' name="urg_flag_cnt" value={formData.urg_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='ece_flag_cnt' name="ece_flag_cnt" value={formData.ece_flag_cnt} onChange={handleFormData}/>
-            <input type="text" placeholder='down_up_ratio' name="down_up_ratio" value={formData.down_up_ratio} onChange={handleFormData}/>
-            <input type="text" placeholder='pkt_size_avg' name="pkt_size_avg" value={formData.pkt_size_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='init_fwd_win_byts' name="init_fwd_win_byts" value={formData.init_fwd_win_byts} onChange={handleFormData}/>
-            <input type="text" placeholder='init_bwd_win_byts' name="init_bwd_win_byts" value={formData.init_bwd_win_byts} onChange={handleFormData}/>
-            <input type="text" placeholder='active_max' name="active_max" value={formData.active_max} onChange={handleFormData}/>
-            <input type="text" placeholder='active_min' name="active_min" value={formData.active_min} onChange={handleFormData}/>
-            <input type="text" placeholder='active_mean' name="active_mean" value={formData.active_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='active_std' name="active_std" value={formData.active_std} onChange={handleFormData}/>
-            <input type="text" placeholder='idle_max' name="idle_max" value={formData.idle_max} onChange={handleFormData}/>
-            <input type="text" placeholder='idle_min' name="idle_min" value={formData.idle_min} onChange={handleFormData}/>
-            <input type="text" placeholder='idle_mean' name="idle_mean" value={formData.idle_mean} onChange={handleFormData}/>
-            <input type="text" placeholder='idle_std' name="idle_std" value={formData.idle_std} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_byts_b_avg' name="fwd_byts_b_avg" value={formData.fwd_byts_b_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_pkts_b_avg' name="fwd_pkts_b_avg" value={formData.fwd_pkts_b_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_byts_b_avg' name="bwd_byts_b_avg" value={formData.bwd_byts_b_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_pkts_b_avg' name="bwd_pkts_b_avg" value={formData.bwd_pkts_b_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_blk_rate_avg' name="fwd_blk_rate_avg" value={formData.fwd_blk_rate_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_blk_rate_avg' name="bwd_blk_rate_avg" value={formData.bwd_blk_rate_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='fwd_seg_size_avg' name="fwd_seg_size_avg" value={formData.fwd_seg_size_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='bwd_seg_size_avg' name="bwd_seg_size_avg" value={formData.bwd_seg_size_avg} onChange={handleFormData}/>
-            <input type="text" placeholder='cwe_flag_count' name="cwe_flag_count" value={formData.cwe_flag_count} onChange={handleFormData}/>
-            <input type="text" placeholder='subflow_fwd_pkts' name="subflow_fwd_pkts" value={formData.subflow_fwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='subflow_bwd_pkts' name="subflow_bwd_pkts" value={formData.subflow_bwd_pkts} onChange={handleFormData}/>
-            <input type="text" placeholder='subflow_fwd_byts' name="subflow_fwd_byts" value={formData.subflow_fwd_byts} onChange={handleFormData}/>
-            <input type="text" placeholder='subflow_bwd_byts' name="subflow_bwd_byts" value={formData.subflow_bwd_yts} onChange={handleFormData}/>
+    const textBoxes = cols.map((col, index) => (
+        <input
+            type="text"
+            placeholder={col}
+            name={col}
+            value={formData[col]}
+            onChange={handleFormData}
+            key={index}
+        />
+    ));
 
-            <br/><br/>
-            <center><button className="form-submit-button" type='submit'>Submit</button></center>
-        </form>
-        <br/>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+        fetch("http://localhost:3001/formpost", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            mode: "cors",
+            body: JSON.stringify(formData), // body data type must match "Content-Type" header
+        }).then(() => console.log("record sent to the backend"));
+        // console.log(JSON.stringify(record))
+    };
 
-        Upload your csv: <input type ="file" onChange={handleUpload} name="file" accept=".csv"/><br/>
+    const handleUpload = (e) => {
+        e.preventDefault();
+        const csvData = new FormData();
+        csvData.append("file", e.target.files[0]);
+        // console.log(csvData);
+        fetch("http://localhost:3001/csvpost", {
+            method: "POST",
+            headers: {
+                ContentType: "multipart/form-data",
+            },
+            mode: "cors",
+            body: csvData,
+        });
+    };
 
-    </div>
-  )
+    return (
+        <div className="form">
+            <center>
+                <h3>Test your data</h3>
+            </center>
+            <br />
+            <form onSubmit={handleSubmit}>
+                {textBoxes}
+                <br />
+                <br />
+                <center>
+                    <button className="form-submit-button" type="submit">
+                        Submit
+                    </button>
+                </center>
+            </form>
+            <br />
+            Upload your csv:{" "}
+            <input
+                type="file"
+                onChange={handleUpload}
+                name="file"
+                accept=".csv"
+            />
+            <br />
+        </div>
+    );
 }
 
-export default Form
+export default Form;
