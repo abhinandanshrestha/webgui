@@ -106,6 +106,15 @@ function Form() {
         />
     ));
 
+    let fdCSV = { file: "", line_no: "" };
+    const [formDataCSV, setFormDataCSV] = useState(fdCSV);
+
+    const handleFormDataCSV = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormDataCSV({ ...formDataCSV, [name]: value });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
@@ -118,18 +127,19 @@ function Form() {
         // console.log(JSON.stringify(record))
     };
 
-    const handleUpload = (e) => {
+    const handleCSVSubmit = (e) => {
         e.preventDefault();
-        const csvData = new FormData();
-        csvData.append("file", e.target.files[0]);
-        // console.log(csvData);
-        fetch("http://localhost:3001/csvpost", {
+        const csvFormData = new FormData();
+        console.log(e.target.file.files[0]);
+        csvFormData.append("file", e.target.file.files[0]);
+        csvFormData.append("line_no", formDataCSV.line_no);
+
+        fetch("http://localhost:3001/upload_file", {
             method: "POST",
-            headers: {
-                ContentType: "multipart/form-data",
-            },
-            mode: "cors",
-            body: csvData,
+            body: csvFormData,
+        }).then((res) => {
+            console.log("Upload Successful...");
+            console.log(res);
         });
     };
 
@@ -150,13 +160,34 @@ function Form() {
                 </center>
             </form>
             <br />
-            Upload your csv:{" "}
-            <input
-                type="file"
-                onChange={handleUpload}
-                name="file"
-                accept=".csv"
-            />
+            <hr />
+            <form onSubmit={handleCSVSubmit}>
+                <br />
+                <center>
+                    <h3>Test data from CSV</h3>
+                </center>
+                Upload your csv:{" "}
+                <input
+                    type="file"
+                    onChange={handleFormDataCSV}
+                    value={formDataCSV["file"]}
+                    name="file"
+                    accept=".csv"
+                />
+                <br />
+                Row Number:{" "}
+                <input
+                    type="number"
+                    name="line_no"
+                    value={formDataCSV["line_no"]}
+                    onChange={handleFormDataCSV}
+                />
+                <center>
+                    <button className="form-submit-button" type="submit">
+                        Submit
+                    </button>
+                </center>
+            </form>
             <br />
         </div>
     );
