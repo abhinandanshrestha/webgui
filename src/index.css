@@ -10,13 +10,13 @@
     flex-direction: column;
 }
 
-.mathi_div{
-    background: gold; 
-    flex: 11; 
+.mathi_div {
+    background: gold;
+    flex: 11;
     display: flex;
 }
 
-.sidenav{
+.sidenav {
     background-color: #111;
     max-width: 200px;
     min-width: 200px;
@@ -24,37 +24,37 @@
     flex: 2;
 }
 
-.form{
-    flex:10;
+.form {
+    flex: 10;
     background-color: white;
     padding-top: 130px;
     padding-left: 40px;
 }
-.form input{
+.form input {
     width: 110px;
     margin: 2px;
     padding: 10px;
 }
 
 .form-submit-button {
-	background: #ff2525;
-	color: #fff;
-	border: 1px solid #eee;
-	border-top-left-radius: 20px;
+    background: #ff2525;
+    color: #fff;
+    border: 1px solid #eee;
+    border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
-	box-shadow: 5px 5px 5px #eee;
-	text-shadow: none;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
     padding: 10px;
     transition: 400ms ease;
 }
 
 .form-submit-button:hover {
-	background: #ff5151;
-	color: #fff;
-	border: 1px solid #eee;
-	border-radius: 20px;
-	box-shadow: 5px 5px 5px #eee;
-	text-shadow: none;
+    background: #ff5151;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow: none;
 }
 
 a {
@@ -65,13 +65,12 @@ a {
     display: block;
 }
 
-  
 /* :hover {
     color: #f1f1f1;
 } */
 
 .traffic {
-    background: #eee; 
+    background: #eee;
     flex: 5;
     max-width: 40%;
     min-height: 100%;
@@ -80,20 +79,55 @@ a {
 }
 
 .charts {
-    background: white; 
+    background: white;
     flex: 5;
     /* max-width: 40%; */
     color: black;
 }
-.plots{
+.plots {
     margin-top: 50px;
 }
 
-.tala_div{
-    background: rgb(41, 41, 41); flex: 1;
+.tala_div {
+    background: rgb(41, 41, 41);
+    flex: 1;
 }
 
-.material-symbols-outlined{
+.material-symbols-outlined {
     color: white;
-    font-size:60px;
+    font-size: 60px;
 }
+
+.logs {
+    background-color: white;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.logs table {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.logs table tr {
+    border: 1px solid gray;
+}
+
+.logs table td,
+.logs table th {
+    padding: 10px;
+}
+
+.logs button {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+}
+
+/* #alert {
+    height: 300px;
+} */
