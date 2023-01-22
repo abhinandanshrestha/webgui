@@ -13,6 +13,7 @@ function Sidenav() {
             <Link to="/timeseries">Timeseries</Link>
             <Link to="/form">Form</Link>
             <Link to="/logs">Logs</Link>
+            <Link to="/scatter">Scatter</Link>
         </div>
     );
 }

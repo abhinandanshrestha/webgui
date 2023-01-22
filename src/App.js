@@ -8,12 +8,17 @@ import Form from "./components/Form";
 import { useState, useEffect, useMemo } from "react";
 import io from "socket.io-client";
 import Logs from "./components/Logs";
+import Scatter from "./components/Scatter";
 const serverIp = "http://localhost:3001";
 const socket = io.connect(serverIp);
 
 function App() {
     const [data, setData] = useState([]);
     const [cols, setCols] = useState([]);
+
+    const [testData, setTestData] = useState(false);
+    const [scatterData, setScatterData] = useState([[], []]);
+
     const columns = useMemo(() => cols, [cols]);
 
     const fetchData = () => {
@@ -23,22 +28,38 @@ function App() {
         });
     };
 
-    const [testData, setTestData] = useState(false);
+    const fetchScatterData = () => {
+        fetch("http://localhost:3001/get-scatterData", {
+            method: "GET",
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                setScatterData(data.scatterData);
+            });
+    };
+
+    const fetchTestData = () => {
+        fetch("http://localhost:3001/test", {
+            method: "GET",
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                setTestData(data.attack);
+            });
+    };
 
     useEffect(() => {
         fetchData();
-        const testHandle = setInterval(() => {
-            fetch("http://localhost:3001/test", {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((data) => {
-                    setTestData(data.attack);
-                });
-        }, 5000);
-        return () => clearInterval(testHandle);
+        const testHandle = setInterval(fetchTestData, 5000);
+        const scatterHandle = setInterval(fetchScatterData, 5000);
+        return () => {
+            clearInterval(testHandle);
+            clearInterval(scatterHandle);
+        };
     }, []);
 
     return (
@@ -72,6 +93,11 @@ function App() {
                         />
                         <Route exact path="/form" element={<Form />} />
                         <Route exact path="/logs" element={<Logs />} />
+                        <Route
+                            exact
+                            path="/scatter"
+                            element={<Scatter scatterData={scatterData} />}
+                        />
                     </Routes>
                 </div>
                 <div className="tala_div" id="alert">
