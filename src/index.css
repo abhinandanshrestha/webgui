@@ -128,6 +128,53 @@ a {
     right: 5%;
 }
 
+.landing {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing button {
+    background: #1aab8a;
+    color: #fff;
+    border: none;
+    position: relative;
+    height: 60px;
+    font-size: 1.6em;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+}
+.landing button:hover {
+    background: #fff;
+    color: #1aab8a;
+}
+.landing button:before,
+button:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #1aab8a;
+    transition: 400ms ease all;
+}
+.landing button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+.landing button:hover:before,
+.landing button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+}
+
 /* #alert {
     height: 300px;
 } */
