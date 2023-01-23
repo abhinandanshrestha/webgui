@@ -1,4 +1,6 @@
-export default function Landing({ setMonitorState }) {
+import { monitoring } from "../redux/monitorSlice";
+
+export default function Landing({ dispatch }) {
     const startMonitoring = () => {
         fetch("http://localhost:3001/startMonitoring", {
             method: "POST",
@@ -8,7 +10,9 @@ export default function Landing({ setMonitorState }) {
             })
             .then((data) => {
                 console.log(data.state);
-                setMonitorState(data.state);
+                if (data.state) {
+                    dispatch(monitoring());
+                }
             });
     };
 

@@ -1,26 +1,26 @@
-import React, { useState } from "react";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateLog } from "../redux/logSlice";
 const moment = require("moment");
 
 export default function Logs() {
-    const [logs, setLogs] = useState([]);
-
-    const fetchLogs = () => {
-        fetch("http://localhost:3001/get-logs", {
-            method: "GET",
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setLogs(data.logs);
-            });
-    };
+    const logs = useSelector((state) => state.log.data);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        const fetchLogs = () => {
+            fetch("http://localhost:3001/get-logs", {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    dispatch(updateLog(data.logs));
+                });
+        };
         fetchLogs();
-    }, []);
+    }, [dispatch]);
 
     const logEntries = logs.map((l, index) => (
         <tr key={index}>
@@ -33,7 +33,7 @@ export default function Logs() {
     return (
         <div className="logs">
             <h1>Logs</h1>
-            <button onClick={fetchLogs}>Refresh</button>
+            {/* <button onClick={fetchLogs}>Refresh</button> */}
             <br />
             <hr />
             <table>

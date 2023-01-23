@@ -5,27 +5,31 @@
 
 .container {
     height: 100vh;
-    background: red;
+    width: 100vw;
+    background: green;
     display: flex;
     flex-direction: column;
 }
 
 .mathi_div {
     background: gold;
-    flex: 11;
+    /* flex: 11; */
     display: flex;
+    width: 100vw;
+    height: 80vh;
 }
 
 .sidenav {
     background-color: #111;
-    max-width: 200px;
-    min-width: 200px;
-    width: 200px;
-    flex: 2;
+    /* max-width: 200px; */
+    /* min-width: 200px; */
+    width: 20vw;
+    height: 100%;
+    /* flex: 2; */
 }
 
 .form {
-    flex: 10;
+    /* flex: 10; */
     background-color: white;
     padding-top: 130px;
     padding-left: 40px;
@@ -71,26 +75,33 @@ a {
 
 .traffic {
     background: #eee;
-    flex: 5;
-    max-width: 40%;
-    min-height: 100%;
+    margin: auto;
+    width: 80vw;
+    height: 100%;
+    /* flex: 5; */
+    /* max-width: 40%; */
+    /* min-height: 100%; */
     color: black;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
-
+/* 
 .charts {
     background: white;
-    flex: 5;
-    /* max-width: 40%; */
-    color: black;
-}
-.plots {
+    /* flex: 5; */
+/* max-width: 40%; */
+/* color: black; */
+/* } */
+/* .plots {
     margin-top: 50px;
-}
+} */
 
 .tala_div {
+    position: fixed;
+    bottom: 0;
     background: rgb(41, 41, 41);
-    flex: 1;
+    height: 20vh;
+    width: 100vw;
+    /* flex: 1; */
 }
 
 .material-symbols-outlined {
@@ -101,11 +112,20 @@ a {
 .logs {
     background-color: white;
     width: 100%;
-    height: auto;
-    padding: 20px;
+    /* height: auto; */
+    /* padding: 20px; */
+    overflow: scroll;
 }
 
-.logs table {
+.logs h1 {
+    position: sticky;
+    top: 0;
+    background-color: #818181;
+    margin: 0;
+    padding: 30px;
+}
+
+* table {
     width: 50%;
     margin: auto;
     text-align: center;
@@ -113,12 +133,12 @@ a {
     margin-top: 20px;
 }
 
-.logs table tr {
+* table tr {
     border: 1px solid gray;
 }
 
-.logs table td,
-.logs table th {
+* table td,
+* table th {
     padding: 10px;
 }
 
@@ -126,6 +146,16 @@ a {
     position: fixed;
     top: 5%;
     right: 5%;
+}
+
+.scatter {
+    width: 100%;
+    overflow: scroll;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
 }
 
 .landing {
