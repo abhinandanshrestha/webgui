@@ -152,9 +152,10 @@ a {
     width: 100%;
     overflow: scroll;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     background-color: white;
 }
 

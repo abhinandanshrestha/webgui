@@ -14,7 +14,7 @@ import Landing from "./components/Landing";
 import { useSelector, useDispatch } from "react-redux";
 import { monitoring, notMonitoring } from "./redux/monitorSlice";
 import { updateData } from "./redux/trafficSlice";
-import { updateForAttack, updateForNormal } from "./redux/logSlice";
+import { updateForAttack, updateForNormal, appendLog } from "./redux/logSlice";
 
 const serverIp = "http://localhost:3001";
 const socket = io.connect(serverIp);
@@ -44,7 +44,6 @@ function App() {
                     console.log(data.state);
                     if (data.state) {
                         dispatch(monitoring());
-                        // dispatch(updateLog(data));
                     } else {
                         dispatch(notMonitoring());
                     }
@@ -61,6 +60,9 @@ function App() {
                 .then((data) => {
                     if (data.attack) {
                         dispatch(updateForAttack());
+                        dispatch(
+                            appendLog([`${data.timestamp}, ${data.attackType}`])
+                        );
                     } else {
                         dispatch(updateForNormal());
                     }

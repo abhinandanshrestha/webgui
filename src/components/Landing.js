@@ -1,6 +1,9 @@
 import { monitoring } from "../redux/monitorSlice";
+import { useDispatch } from "react-redux";
 
-export default function Landing({ dispatch }) {
+export default function Landing() {
+    const dispatch = useDispatch();
+
     const startMonitoring = () => {
         fetch("http://localhost:3001/startMonitoring", {
             method: "POST",
