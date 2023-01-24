@@ -1,16 +1,16 @@
-import Sidenav from "./components/Sidenav";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import StackedAreaChart from "./components/StackedAreaChart";
-import Traffic from "./components/Traffic";
-import Alert from "./components/Alert";
-// import Timeseries from "./components/Timeseries";
-import Form from "./components/Form";
-// import { useState, useEffect, useMemo } from "react";
 import { useEffect } from "react";
 import io from "socket.io-client";
+
+import Traffic from "./components/Traffic";
+import Sidenav from "./components/Sidenav";
+import Alert from "./components/Alert";
 import Logs from "./components/Logs";
 import Scatter from "./components/Scatter";
 import Landing from "./components/Landing";
+import Bar from "./components/Bar";
+import Form from "./components/Form";
+
 import { useSelector, useDispatch } from "react-redux";
 import { monitoring, notMonitoring } from "./redux/monitorSlice";
 import { updateData } from "./redux/trafficSlice";
@@ -66,7 +66,6 @@ function App() {
                     } else {
                         dispatch(updateForNormal());
                     }
-                    // setTestData(data.attack);
                 });
         };
 
@@ -98,22 +97,6 @@ function App() {
                                     </>
                                 }
                             />
-                            {/* <Route
-                                exact
-                                path="/timeseries"
-                                element={
-                                    <>
-                                        <Traffic
-                                            data={trafficData}
-                                            columns={columns}
-                                        />
-                                        <Timeseries
-                                            data={trafficData}
-                                            columns={columns}
-                                        />
-                                    </>
-                                }
-                            /> */}
                             <Route exact path="/form" element={<Form />} />
                             <Route exact path="/logs" element={<Logs />} />
                             <Route
@@ -121,6 +104,7 @@ function App() {
                                 path="/scatter"
                                 element={<Scatter />}
                             />
+                            <Route exact path="/bar" element={<Bar />} />
                         </Routes>
                     </div>
                     <div className="tala_div" id="alert">
