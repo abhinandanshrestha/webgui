@@ -56,7 +56,8 @@ export default function Scatter() {
 
     return (
         <div className="scatter">
-            {normal && (
+            if(normal.length){" "}
+            {
                 <Plot
                     data={[
                         {
@@ -88,7 +89,11 @@ export default function Scatter() {
                     }}
                     // layout={{ width: 320, height: 240, title: "Scatter Plot of Attack and Normal Data" }}
                 />
-            )}
+            }
+            else {<p>Fetching Data</p>}
+            {/* {normal && (
+
+            )} */}
             <hr />
             {attackTypePlots && attackTypePlots}
         </div>

@@ -72,10 +72,12 @@ function App() {
         fetchMonitorState();
         fetchTrafficData();
 
+        const monitorHandle = setInterval(fetchMonitorState, 5000);
         const testHandle = setInterval(fetchTestData, 5000);
 
         return () => {
             clearInterval(testHandle);
+            clearInterval(monitorHandle);
         };
     }, [dispatch]);
 

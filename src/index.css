@@ -74,14 +74,14 @@ a {
 
 .traffic {
     background: #eee;
-    margin: auto;
+    /* margin: auto; */
     width: 100%;
     height: 100%;
     /* flex: 5; */
     /* max-width: 40%; */
     /* min-height: 100%; */
     color: black;
-    /* overflow: scroll; */
+    overflow: scroll;
 }
 /* 
 .charts {
@@ -164,6 +164,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .landing button {

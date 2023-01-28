@@ -21,6 +21,14 @@ export default function Landing() {
 
     return (
         <div className="landing">
+            <div>
+                <i>
+                    <b>cicflowmeter</b>
+                </i>{" "}
+                is not running.
+            </div>
+            <br />
+            <hr />
             <button onClick={startMonitoring}>Start Monitoring</button>
         </div>
     );

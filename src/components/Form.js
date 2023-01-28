@@ -123,7 +123,14 @@ function Form() {
             headers: { "Content-Type": "application/json" },
             mode: "cors",
             body: JSON.stringify(formData), // body data type must match "Content-Type" header
-        }).then(() => console.log("record sent to the backend"));
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                console.log(data.predictedClass);
+            });
         // console.log(JSON.stringify(record))
     };
 
