@@ -24,7 +24,6 @@ export default function Scatter() {
                     line: {
                         dash: "dashdot",
                     },
-                    // marker: { color: "green" },
                 },
             ]}
             layout={{
@@ -54,48 +53,44 @@ export default function Scatter() {
         };
     }, [dispatch]);
 
-    return (
+    return normal.length ? (
         <div className="scatter">
-            if(normal.length){" "}
-            {
-                <Plot
-                    data={[
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: normal,
-                            type: "scatter",
-                            mode: "lines+markers",
-                            name: "Normal Traffic",
-                            line: {
-                                dash: "dashdot",
-                            },
-                            marker: { color: "green" },
+            <Plot
+                data={[
+                    {
+                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        y: normal,
+                        type: "scatter",
+                        mode: "lines+markers",
+                        name: "Normal Traffic",
+                        line: {
+                            dash: "dashdot",
                         },
-                        {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: attack,
-                            type: "scatter",
-                            mode: "lines+markers",
-                            name: "Attack Traffic",
-                            line: {
-                                dash: "dashdot",
-                            },
-                            marker: { color: "red" },
+                        marker: { color: "green" },
+                    },
+                    {
+                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        y: attack,
+                        type: "scatter",
+                        mode: "lines+markers",
+                        name: "Attack Traffic",
+                        line: {
+                            dash: "dashdot",
                         },
-                    ]}
-                    layout={{
-                        xaxis: { title: "Time (min)" },
-                        yaxis: { title: "Traffic" },
-                    }}
-                    // layout={{ width: 320, height: 240, title: "Scatter Plot of Attack and Normal Data" }}
-                />
-            }
-            else {<p>Fetching Data</p>}
-            {/* {normal && (
-
-            )} */}
-            <hr />
+                        marker: { color: "red" },
+                    },
+                ]}
+                layout={{
+                    xaxis: { title: "Time (min)" },
+                    yaxis: { title: "Traffic" },
+                    title: "Scatter Plot of Attack and Normal Traffic",
+                }}
+            />
             {attackTypePlots && attackTypePlots}
+        </div>
+    ) : (
+        <div className="scatter">
+            <h1>Creating Scatter Plot</h1>
         </div>
     );
 }
