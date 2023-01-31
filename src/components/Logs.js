@@ -8,8 +8,11 @@ export default function Logs() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchLogs = () => {
-            fetch("http://localhost:3001/get-logs", {
+        const fetchLogData = () => {
+            const url = `http://localhost:3001/getLogData?logCount=${encodeURIComponent(
+                logs.length
+            )}`;
+            fetch(url, {
                 method: "GET",
             })
                 .then((res) => {
@@ -19,8 +22,15 @@ export default function Logs() {
                     dispatch(updateLog(data.logs));
                 });
         };
-        fetchLogs();
-    }, [dispatch]);
+
+        fetchLogData();
+
+        const logHandle = setInterval(fetchLogData, 5000);
+
+        return () => {
+            clearInterval(logHandle);
+        };
+    }, [dispatch, logs.length]);
 
     const logEntries = logs.map((l, index) => (
         <tr key={index}>

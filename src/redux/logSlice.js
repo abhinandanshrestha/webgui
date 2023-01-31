@@ -10,7 +10,7 @@ export const logSlice = createSlice({
     initialState,
     reducers: {
         updateLog: (state, data) => {
-            state.data = data.payload;
+            state.data = state.data.concat(data.payload);
         },
         updateForAttack: (state) => {
             state.lastTrafficType = 1;
@@ -18,13 +18,9 @@ export const logSlice = createSlice({
         updateForNormal: (state) => {
             state.lastTrafficType = 0;
         },
-        appendLog: (state, data) => {
-            state.data = state.data.concat(data.payload);
-        },
     },
 });
 
-export const { updateLog, updateForAttack, updateForNormal, appendLog } =
-    logSlice.actions;
+export const { updateLog, updateForAttack, updateForNormal } = logSlice.actions;
 
 export default logSlice.reducer;
