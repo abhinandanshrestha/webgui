@@ -13,6 +13,8 @@ import Landing from "./components/Landing";
 import Bar from "./components/Bar";
 import Form from "./components/Form";
 
+// TODO ---> Remember the scroll state of components when returning back after visiting another component
+
 function App() {
     const dispatch = useDispatch();
     const monitorState = useSelector((state) => state.monitor.value);
@@ -44,33 +46,27 @@ function App() {
         };
     }, [dispatch]);
 
-    if (!monitorState) {
-        return <Landing />;
-    } else {
-        return (
-            <Router>
-                <div className="container">
-                    <div className="mathi_div">
-                        <Sidenav />
-                        <Routes>
-                            <Route exact path="/" element={<Traffic />} />
-                            <Route exact path="/form" element={<Form />} />
-                            <Route exact path="/logs" element={<Logs />} />
-                            <Route
-                                exact
-                                path="/scatter"
-                                element={<Scatter />}
-                            />
-                            <Route exact path="/bar" element={<Bar />} />
-                        </Routes>
-                    </div>
-                    <div className="tala_div" id="alert">
-                        <Alert testData={lastTrafficType} />
-                    </div>
+    return monitorState ? (
+        <Router>
+            <div className="container">
+                <div className="mathi_div">
+                    <Sidenav />
+                    <Routes>
+                        <Route exact path="/" element={<Traffic />} />
+                        <Route exact path="/form" element={<Form />} />
+                        <Route exact path="/logs" element={<Logs />} />
+                        <Route exact path="/scatter" element={<Scatter />} />
+                        <Route exact path="/bar" element={<Bar />} />
+                    </Routes>
                 </div>
-            </Router>
-        );
-    }
+                <div className="tala_div" id="alert">
+                    <Alert testData={lastTrafficType} />
+                </div>
+            </div>
+        </Router>
+    ) : (
+        <Landing />
+    );
 }
 
 export default App;
