@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import io from "socket.io-client";
+import { useSelector, useDispatch } from "react-redux";
+import { monitoring, notMonitoring } from "./redux/monitorSlice";
+import { updateForAttack, updateForNormal, appendLog } from "./redux/logSlice";
 
 import Traffic from "./components/Traffic";
 import Sidenav from "./components/Sidenav";
@@ -11,28 +13,12 @@ import Landing from "./components/Landing";
 import Bar from "./components/Bar";
 import Form from "./components/Form";
 
-import { useSelector, useDispatch } from "react-redux";
-import { monitoring, notMonitoring } from "./redux/monitorSlice";
-import { updateData } from "./redux/trafficSlice";
-import { updateForAttack, updateForNormal, appendLog } from "./redux/logSlice";
-
-const serverIp = "http://localhost:3001";
-const socket = io.connect(serverIp);
-
 function App() {
     const dispatch = useDispatch();
     const monitorState = useSelector((state) => state.monitor.value);
     const lastTrafficType = useSelector((state) => state.log.lastTrafficType);
 
-    // const [testData, setTestData] = useState(false);
-
     useEffect(() => {
-        const fetchTrafficData = () => {
-            socket.on("sent from the server", (data, cols) => {
-                dispatch(updateData([data, cols]));
-            });
-        };
-
         const fetchMonitorState = () => {
             fetch("http://localhost:3001/getMonitorState", {
                 method: "GET",
@@ -41,7 +27,6 @@ function App() {
                     return res.json();
                 })
                 .then((data) => {
-                    console.log(data.state);
                     if (data.state) {
                         dispatch(monitoring());
                     } else {
@@ -70,7 +55,6 @@ function App() {
         };
 
         fetchMonitorState();
-        fetchTrafficData();
 
         const monitorHandle = setInterval(fetchMonitorState, 5000);
         const testHandle = setInterval(fetchTestData, 5000);

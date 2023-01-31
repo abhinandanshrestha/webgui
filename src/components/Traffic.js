@@ -1,6 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateShowMoreRowNumber } from "../redux/trafficSlice";
+import { appendData, updateShowMoreRowNumber } from "../redux/trafficSlice";
 
 export default function Traffic() {
     const dispatch = useDispatch();
@@ -10,6 +11,31 @@ export default function Traffic() {
     const showMoreRowNumber = useSelector(
         (state) => state.traffic.showMoreRowNumber
     );
+
+    useEffect(() => {
+        const fetchTrafficData = () => {
+            const url = `http://localhost:3001/getTrafficData?dataCount=${encodeURIComponent(
+                trafficData.length
+            )}`;
+            fetch(url, {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then(({ data, cols }) => {
+                    dispatch(appendData([data, cols]));
+                });
+        };
+
+        fetchTrafficData();
+
+        const trafficHandle = setInterval(fetchTrafficData, 5000);
+
+        return () => {
+            clearInterval(trafficHandle);
+        };
+    }, [dispatch, trafficData.length]);
 
     const showMore = (e) => {
         const rowNumber = e.target.getAttribute("data-index");

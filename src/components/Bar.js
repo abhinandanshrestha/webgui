@@ -9,8 +9,6 @@ export default function Bar() {
     const attackTypes = useSelector((state) => state.scatter.attackTypes);
     const dispatch = useDispatch();
 
-    console.log(attackTypes);
-
     const attackTypePlots = attackTypes.map((type, index) => (
         <Plot
             key={index}
