@@ -5,23 +5,27 @@ import {
     updateFormData,
     resetformDataCSV,
     updateFormDataCSV,
+    setFormPrediction,
 } from "../redux/formSlice";
 
 function Form() {
     const formData = useSelector((state) => state.form.formData);
     const cols = useSelector((state) => state.form.cols);
     const formDataCSV = useSelector((state) => state.form.formDataCSV);
+    const formPrediction = useSelector((state) => state.form.formPrediction);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(resetFormData());
         dispatch(resetformDataCSV());
+        dispatch(setFormPrediction(undefined));
     }, [dispatch]);
 
     const handleFormData = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         dispatch(updateFormData([name, value]));
+        dispatch(setFormPrediction(undefined));
     };
 
     const handleFormDataCSV = (e) => {
@@ -32,7 +36,6 @@ function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
         fetch("http://localhost:3001/formpost", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -43,10 +46,8 @@ function Form() {
                 return res.json();
             })
             .then((data) => {
-                console.log(data);
-                console.log(data.predictedClass);
+                dispatch(setFormPrediction(data.prediction));
             });
-        // console.log(JSON.stringify(record))
     };
 
     const handleCSVSubmit = (e) => {
@@ -92,6 +93,18 @@ function Form() {
                     </button>
                 </center>
             </form>
+            {formPrediction && (
+                <span>
+                    {formPrediction.attack ? (
+                        <p>Predicted: Attack</p>
+                    ) : (
+                        <p>Predicted: Normal</p>
+                    )}
+                    {formPrediction.attack && (
+                        <p>Attack Type: {formPrediction.class}</p>
+                    )}
+                </span>
+            )}
             <br />
             <hr />
             <form onSubmit={handleCSVSubmit}>

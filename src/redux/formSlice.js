@@ -89,6 +89,7 @@ const initialState = {
     formData: fd,
     cols: cols,
     formDataCSV: { file: "", line_no: "" },
+    formPrediction: undefined,
 };
 
 export const formSlice = createSlice({
@@ -113,6 +114,9 @@ export const formSlice = createSlice({
                 [x.payload[0]]: x.payload[1],
             };
         },
+        setFormPrediction: (state, prediction) => {
+            state.formPrediction = prediction.payload;
+        },
     },
 });
 
@@ -121,6 +125,7 @@ export const {
     updateFormData,
     resetformDataCSV,
     updateFormDataCSV,
+    setFormPrediction,
 } = formSlice.actions;
 
 export default formSlice.reducer;
