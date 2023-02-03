@@ -19,6 +19,7 @@ function App() {
     const dispatch = useDispatch();
     const monitorState = useSelector((state) => state.monitor.value);
     const lastTrafficType = useSelector((state) => state.log.lastTrafficType);
+    const customTesting = useSelector((state) => state.monitor.customTesting);
 
     useEffect(() => {
         const fetchMonitorState = () => {
@@ -46,7 +47,7 @@ function App() {
         };
     }, [dispatch]);
 
-    return monitorState ? (
+    return monitorState || customTesting ? (
         <Router>
             <div className="container">
                 <div className="mathi_div">
@@ -65,7 +66,9 @@ function App() {
             </div>
         </Router>
     ) : (
-        <Landing />
+        <Router>
+            <Landing />;
+        </Router>
     );
 }
 
