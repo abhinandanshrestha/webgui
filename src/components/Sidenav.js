@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { monitoring, setCustomTesting } from "../redux/monitorSlice";
+import {
+    monitoring,
+    notMonitoring,
+    setCustomTesting,
+} from "../redux/monitorSlice";
 
 function Sidenav() {
+    const monitorState = useSelector((state) => state.monitor.value);
     const customTesting = useSelector((state) => state.monitor.customTesting);
     const dispatch = useDispatch();
 
@@ -20,6 +25,18 @@ function Sidenav() {
                 }
             });
         dispatch(setCustomTesting(false));
+    };
+
+    const stopMonitoring = () => {
+        fetch("http://localhost:3001/stopMonitoring", { method: "POST" })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if (data.ok) {
+                    dispatch(notMonitoring());
+                }
+            });
     };
 
     return (
@@ -41,6 +58,12 @@ function Sidenav() {
                     <Link to="/scatter">Scatter Plot</Link>
                     <Link to="/bar">Bar Graph</Link>
                 </div>
+            )}
+            <hr />
+            {monitorState && (
+                <Link to="/" onClick={stopMonitoring}>
+                    Stop Monitoring
+                </Link>
             )}
         </div>
     );

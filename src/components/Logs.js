@@ -23,8 +23,6 @@ export default function Logs() {
                 });
         };
 
-        fetchLogData();
-
         const logHandle = setInterval(fetchLogData, 5000);
 
         return () => {
