@@ -35,6 +35,7 @@ export default function Logs() {
             <td>{index}</td>
             <td>{moment(parseInt(l.split(",")[0])).format("LLLL")}</td>
             <td>{l.split(",")[1]}</td>
+            <td>{l.split(",")[2]}</td>
         </tr>
     ));
 
@@ -49,6 +50,7 @@ export default function Logs() {
                     <tr>
                         <th>S.No.</th>
                         <th>Timestamp</th>
+                        <th>Attack Category</th>
                         <th>Attack Type</th>
                     </tr>
                 </thead>
