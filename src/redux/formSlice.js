@@ -78,7 +78,7 @@ const cols = [
     "Idle_Std",
     "Idle_Max",
     "Idle_Min",
-    "Label",
+    // "Label",
 ];
 let fd = {};
 cols.forEach((col) => {
