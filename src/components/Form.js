@@ -6,6 +6,7 @@ import {
     resetformDataCSV,
     updateFormDataCSV,
     setFormPrediction,
+    setFormCSVPrediction,
 } from "../redux/formSlice";
 
 function Form() {
@@ -13,6 +14,9 @@ function Form() {
     const cols = useSelector((state) => state.form.cols);
     const formDataCSV = useSelector((state) => state.form.formDataCSV);
     const formPrediction = useSelector((state) => state.form.formPrediction);
+    const formCSVPrediction = useSelector(
+        (state) => state.form.formCSVPrediction
+    );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -53,17 +57,20 @@ function Form() {
     const handleCSVSubmit = (e) => {
         e.preventDefault();
         const csvFormData = new FormData();
-        console.log(e.target.file.files[0]);
         csvFormData.append("file", e.target.file.files[0]);
         csvFormData.append("line_no", formDataCSV.line_no);
+        csvFormData.append("csvformat", formDataCSV.csvformat);
 
         fetch("http://localhost:3001/upload_file", {
             method: "POST",
             body: csvFormData,
-        }).then((res) => {
-            console.log("Upload Successful...");
-            console.log(res);
-        });
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                dispatch(setFormCSVPrediction(data.prediction));
+            });
     };
 
     const textBoxes = cols.map((col, index) => (
@@ -128,6 +135,22 @@ function Form() {
                     value={formDataCSV["line_no"]}
                     onChange={handleFormDataCSV}
                 />
+                <br />
+                CSV Format:
+                <input
+                    type="radio"
+                    name="csvformat"
+                    value="cicflowmeter"
+                    onChange={handleFormDataCSV}
+                />
+                <label htmlFor="cicflowmeter">cicflowmeter</label>
+                <input
+                    type="radio"
+                    name="csvformat"
+                    value="cicids2017"
+                    onChange={handleFormDataCSV}
+                />
+                <label htmlFor="cicids2017">CICIDS2017</label>
                 <center>
                     <button className="form-submit-button" type="submit">
                         Submit
@@ -135,6 +158,18 @@ function Form() {
                 </center>
             </form>
             <br />
+            {formCSVPrediction && (
+                <span>
+                    {formCSVPrediction.attack ? (
+                        <p>Predicted: Attack</p>
+                    ) : (
+                        <p>Predicted: Normal</p>
+                    )}
+                    {formCSVPrediction.attack && (
+                        <p>Attack Type: {formCSVPrediction.class}</p>
+                    )}
+                </span>
+            )}
         </div>
     );
 }

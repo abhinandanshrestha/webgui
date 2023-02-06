@@ -88,8 +88,9 @@ cols.forEach((col) => {
 const initialState = {
     formData: fd,
     cols: cols,
-    formDataCSV: { file: "", line_no: "" },
+    formDataCSV: { file: "", line_no: "", csvformat: "" },
     formPrediction: undefined,
+    formCSVPrediction: undefined,
 };
 
 export const formSlice = createSlice({
@@ -117,6 +118,9 @@ export const formSlice = createSlice({
         setFormPrediction: (state, prediction) => {
             state.formPrediction = prediction.payload;
         },
+        setFormCSVPrediction: (state, prediction) => {
+            state.formCSVPrediction = prediction.payload;
+        },
     },
 });
 
@@ -126,6 +130,7 @@ export const {
     resetformDataCSV,
     updateFormDataCSV,
     setFormPrediction,
+    setFormCSVPrediction,
 } = formSlice.actions;
 
 export default formSlice.reducer;
