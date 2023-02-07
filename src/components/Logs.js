@@ -39,10 +39,10 @@ export default function Logs() {
         </tr>
     ));
 
-    return (
+    return logs.length ? (
         <div className="logs">
             <h1>Logs</h1>
-            {/* <button onClick={fetchLogs}>Refresh</button> */}
+            {/* <button onClick={fetchLogData}>Refresh</button> */}
             <br />
             <hr />
             <table>
@@ -56,6 +56,10 @@ export default function Logs() {
                 </thead>
                 <tbody>{logEntries}</tbody>
             </table>
+        </div>
+    ) : (
+        <div className="logs">
+            <h1>Fetching Logs</h1>
         </div>
     );
 }

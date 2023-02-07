@@ -4,21 +4,25 @@ import { updateScatter } from "../redux/scatterSlice";
 import Plot from "react-plotly.js";
 
 export default function Scatter() {
-    const normal = useSelector((state) => state.scatter.normal);
-    const attack = useSelector((state) => state.scatter.attack);
-    const attackTypes = useSelector((state) => state.scatter.attackTypes);
+    const categoryCount = useSelector((state) => state.scatter.categoryCount);
+    const attackCategories = useSelector(
+        (state) => state.scatter.attackCategories
+    );
+    // const normal = useSelector((state) => state.scatter.normal);
+    // const attack = useSelector((state) => state.scatter.attack);
+    // const attackTypes = useSelector((state) => state.scatter.attackTypes);
     const dispatch = useDispatch();
 
-    const attackTypePlots = attackTypes.map((type, index) => (
+    const attackTypePlots = attackCategories.map((category, index) => (
         <Plot
             key={index}
             data={[
                 {
                     x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                    y: type,
+                    y: categoryCount[category],
                     type: "scatter",
                     mode: "lines+markers",
-                    name: `Type-${index}`,
+                    name: category,
                     line: {
                         dash: "dashdot",
                     },
@@ -27,7 +31,7 @@ export default function Scatter() {
             layout={{
                 xaxis: { title: "Time (min)" },
                 yaxis: { title: "Traffic" },
-                title: `Attack Type-${index}`,
+                title: `Attack ${category}`,
             }}
         />
     ));
@@ -51,39 +55,41 @@ export default function Scatter() {
         };
     }, [dispatch]);
 
-    return normal.length ? (
+    return categoryCount ? (
         <div className="scatter">
-            <Plot
-                data={[
-                    {
-                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                        y: normal,
-                        type: "scatter",
-                        mode: "lines+markers",
-                        name: "Normal Traffic",
-                        line: {
-                            dash: "dashdot",
+            {categoryCount["attack"] && (
+                <Plot
+                    data={[
+                        {
+                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            y: categoryCount["Type11"],
+                            type: "scatter",
+                            mode: "lines+markers",
+                            name: "Normal Traffic",
+                            line: {
+                                dash: "dashdot",
+                            },
+                            marker: { color: "green" },
                         },
-                        marker: { color: "green" },
-                    },
-                    {
-                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                        y: attack,
-                        type: "scatter",
-                        mode: "lines+markers",
-                        name: "Attack Traffic",
-                        line: {
-                            dash: "dashdot",
+                        {
+                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            y: categoryCount["attack"],
+                            type: "scatter",
+                            mode: "lines+markers",
+                            name: "Attack Traffic",
+                            line: {
+                                dash: "dashdot",
+                            },
+                            marker: { color: "red" },
                         },
-                        marker: { color: "red" },
-                    },
-                ]}
-                layout={{
-                    xaxis: { title: "Time (min)" },
-                    yaxis: { title: "Traffic" },
-                    title: "Scatter Plot of Attack and Normal Traffic",
-                }}
-            />
+                    ]}
+                    layout={{
+                        xaxis: { title: "Time (min)" },
+                        yaxis: { title: "Traffic" },
+                        title: "Scatter Plot of Attack and Normal Traffic",
+                    }}
+                />
+            )}
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
