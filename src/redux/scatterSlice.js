@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     data: [],
-    normal: [],
-    attack: [],
-    attackTypes: [],
+    categoryCount: undefined,
+    attackCategories: [],
 };
 
 export const scatterSlice = createSlice({
@@ -12,10 +11,16 @@ export const scatterSlice = createSlice({
     initialState,
     reducers: {
         updateScatter: (state, data) => {
-            state.data = data.payload;
-            state.normal = data.payload.shift();
-            state.attack = data.payload.shift();
-            state.attackTypes = data.payload;
+            state.data = data.payload[0];
+            state.categoryCount = data.payload[1];
+            let categories = Object.keys(data.payload[1]);
+            let attackCategories = [];
+            categories.forEach((category) => {
+                if (category !== "attack" && category !== "Type11") {
+                    attackCategories.push(category);
+                }
+            });
+            state.attackCategories = attackCategories;
         },
     },
 });

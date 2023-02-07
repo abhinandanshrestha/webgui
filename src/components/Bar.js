@@ -4,26 +4,27 @@ import { updateScatter } from "../redux/scatterSlice";
 import Plot from "react-plotly.js";
 
 export default function Bar() {
-    const normal = useSelector((state) => state.scatter.normal);
-    const attack = useSelector((state) => state.scatter.attack);
-    const attackTypes = useSelector((state) => state.scatter.attackTypes);
+    const categoryCount = useSelector((state) => state.scatter.categoryCount);
+    const attackCategories = useSelector(
+        (state) => state.scatter.attackCategories
+    );
     const dispatch = useDispatch();
 
-    const attackTypePlots = attackTypes.map((type, index) => (
+    const attackTypePlots = attackCategories.map((category, index) => (
         <Plot
             key={index}
             data={[
                 {
                     x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                    y: type,
+                    y: categoryCount[category],
                     type: "bar",
-                    name: `Type-${index}`,
+                    name: category,
                 },
             ]}
             layout={{
                 xaxis: { title: "Time (min)" },
                 yaxis: { title: "Traffic" },
-                title: `Attack Type-${index}`,
+                title: `Attack ${category}`,
             }}
         />
     ));
@@ -47,21 +48,21 @@ export default function Bar() {
         };
     }, [dispatch]);
 
-    return normal.length ? (
+    return categoryCount ? (
         <div className="scatter">
-            {normal && (
+            {categoryCount["attack"] && (
                 <Plot
                     data={[
                         {
                             x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: normal,
+                            y: categoryCount["Type11"],
                             type: "bar",
                             name: "Normal Traffic",
                             marker: { color: "green" },
                         },
                         {
                             x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: attack,
+                            y: categoryCount["attack"],
                             type: "bar",
                             name: "Attack Traffic",
                             marker: { color: "red" },
