@@ -128,7 +128,7 @@ a {
 }
 
 * table {
-    width: 70%;
+    width: 90%;
     margin: auto;
     text-align: center;
     border-collapse: collapse;
@@ -219,6 +219,11 @@ button:after {
 } */
 
 .attack{
-    background: red;
-    color: white;
+    background: rgb(255, 80, 80);
+    /* color: white; */
+}
+
+.benign{
+    background:rgb(152, 255, 152);
+    /* color:white */
 }
