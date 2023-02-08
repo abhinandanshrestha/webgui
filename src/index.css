@@ -128,7 +128,7 @@ a {
 }
 
 * table {
-    width: 50%;
+    width: 70%;
     margin: auto;
     text-align: center;
     border-collapse: collapse;
@@ -217,3 +217,8 @@ button:after {
 /* #alert {
     height: 300px;
 } */
+
+.attack{
+    background: red;
+    color: white;
+}
