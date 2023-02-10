@@ -12,6 +12,7 @@ import Scatter from "./components/Scatter";
 import Landing from "./components/Landing";
 import Bar from "./components/Bar";
 import Form from "./components/Form";
+import Pie from "./components/Pie";
 
 // TODO ---> Remember the scroll state of components when returning back after visiting another component
 
@@ -59,6 +60,7 @@ function App() {
                         <Route exact path="/logs" element={<Logs />} />
                         <Route exact path="/scatter" element={<Scatter />} />
                         <Route exact path="/bar" element={<Bar />} />
+                        <Route exact path="/pie" element={<Pie />} />
                     </Routes>
                 </div>
                 <div className={`tala_div ${attack}`}  id="alert">
