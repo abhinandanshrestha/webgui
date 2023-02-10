@@ -34,7 +34,7 @@ export default function Logs() {
     // const attack='attack';
 
     const logEntries = logs.map((l, index) => (
-        <tr className={l.split(",")[1] !== 11 ? attack : "benign"} key={index}>
+        <tr className={parseInt(l.split(",")[1]) !== 11 ? attack : "benign"} key={index}>
             <td>{index}</td>
             <td>{moment(parseInt(l.split(",")[0])).format("LLLL")}</td>
             <td>{l.split(",")[1]}</td>
