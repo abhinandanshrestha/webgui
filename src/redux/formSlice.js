@@ -91,6 +91,7 @@ const initialState = {
     formDataCSV: { file: "", line_no: "", csvformat: "", allData: false },
     formPrediction: undefined,
     formCSVPrediction: undefined,
+    formCSVPredictionMany: undefined,
 };
 
 export const formSlice = createSlice({
@@ -121,6 +122,15 @@ export const formSlice = createSlice({
         setFormCSVPrediction: (state, prediction) => {
             state.formCSVPrediction = prediction.payload;
         },
+        clearFormCSVPrediction: (state) => {
+            state.formCSVPrediction = undefined;
+        },
+        setFormCSVPredictionMany: (state, predictions) => {
+            state.formCSVPredictionMany = predictions.payload;
+        },
+        clearFormCSVPredictionMany: (state) => {
+            state.formCSVPredictionMany = undefined;
+        },
     },
 });
 
@@ -131,6 +141,9 @@ export const {
     updateFormDataCSV,
     setFormPrediction,
     setFormCSVPrediction,
+    clearFormCSVPrediction,
+    setFormCSVPredictionMany,
+    clearFormCSVPredictionMany,
 } = formSlice.actions;
 
 export default formSlice.reducer;

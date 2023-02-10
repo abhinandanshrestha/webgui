@@ -7,6 +7,9 @@ import {
     updateFormDataCSV,
     setFormPrediction,
     setFormCSVPrediction,
+    clearFormCSVPrediction,
+    setFormCSVPredictionMany,
+    clearFormCSVPredictionMany,
 } from "../redux/formSlice";
 
 function Form() {
@@ -16,6 +19,9 @@ function Form() {
     const formPrediction = useSelector((state) => state.form.formPrediction);
     const formCSVPrediction = useSelector(
         (state) => state.form.formCSVPrediction
+    );
+    const formCSVPredictionMany = useSelector(
+        (state) => state.form.formCSVPredictionMany
     );
     const dispatch = useDispatch();
 
@@ -35,8 +41,6 @@ function Form() {
     const handleFormDataCSV = (e) => {
         const name = e.target.name;
         const value = name === "allData" ? e.target.checked : e.target.value;
-        console.log("name:::", name);
-        console.log("value:::", value);
         dispatch(updateFormDataCSV([name, value]));
     };
 
@@ -62,6 +66,7 @@ function Form() {
         csvFormData.append("file", e.target.file.files[0]);
         csvFormData.append("line_no", formDataCSV.line_no);
         csvFormData.append("csvformat", formDataCSV.csvformat);
+        csvFormData.append("allData", formDataCSV.allData);
 
         fetch("http://localhost:3001/upload_file", {
             method: "POST",
@@ -71,7 +76,13 @@ function Form() {
                 return res.json();
             })
             .then((data) => {
-                dispatch(setFormCSVPrediction(data.prediction));
+                if (formDataCSV.allData) {
+                    dispatch(clearFormCSVPrediction());
+                    dispatch(setFormCSVPredictionMany(data.predictions));
+                } else {
+                    dispatch(clearFormCSVPredictionMany());
+                    dispatch(setFormCSVPrediction(data.prediction));
+                }
             });
     };
 
@@ -180,6 +191,15 @@ function Form() {
                     {formCSVPrediction.attack && (
                         <p>Attack Type: {formCSVPrediction.class}</p>
                     )}
+                </span>
+            )}
+            {formCSVPredictionMany && (
+                <span>
+                    {formCSVPredictionMany.map((prediction, index) => (
+                        <p key={index}>
+                            {prediction[1]}::{prediction[2]}
+                        </p>
+                    ))}
                 </span>
             )}
         </div>
