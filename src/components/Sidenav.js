@@ -57,6 +57,7 @@ function Sidenav() {
                     <Link to="/logs">Logs</Link>
                     <Link to="/scatter">Scatter Plot</Link>
                     <Link to="/bar">Bar Graph</Link>
+                    <Link to="/pie">Pie Chart</Link>
                 </div>
             )}
             <hr />
