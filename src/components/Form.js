@@ -194,13 +194,24 @@ function Form() {
                 </span>
             )}
             {formCSVPredictionMany && (
-                <span>
-                    {formCSVPredictionMany.map((prediction, index) => (
-                        <p key={index}>
-                            {prediction[1]}::{prediction[2]}
-                        </p>
-                    ))}
-                </span>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>S.No.</td>
+                            <td>Predicted Category</td>
+                            <td>Category Label</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {formCSVPredictionMany.map((prediction, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{prediction[1]}</td>
+                                <td>{prediction[2]}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
