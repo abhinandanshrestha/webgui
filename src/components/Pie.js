@@ -5,9 +5,9 @@ import Plot from "react-plotly.js";
 
 export default function Pie() {
     const categoryCount = useSelector((state) => state.scatter.categoryCount);
-    // const attackCategories = useSelector(
-    //     (state) => state.scatter.attackCategories
-    // );
+    const attackCategories = useSelector(
+        (state) => state.scatter.attackCategories
+    );
     const dispatch = useDispatch();
 
     let totalCount = {};
@@ -63,29 +63,32 @@ export default function Pie() {
                 <Plot
                     data={[
                         {
-                            // x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            // y: categoryCount["Type11"],
                             values: [
                                 totalCount["Type11"],
                                 totalCount["attack"],
                             ],
                             labels: ["Normal", "Attack"],
                             type: "pie",
-                            // name: "Normal Traffic",
-                            // marker: { color: "green" },
                         },
-                        // {
-                        //     x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                        //     y: categoryCount["attack"],
-                        //     type: "bar",
-                        //     name: "Attack Traffic",
-                        //     marker: { color: "red" },
-                        // },
                     ]}
                     layout={{
-                        // xaxis: { title: "Time (min)" },
-                        // yaxis: { title: "Traffic" },
                         title: "Pie Chart of Attack and Normal Data",
+                    }}
+                />
+            )}
+            {attackCategories.length && (
+                <Plot
+                    data={[
+                        {
+                            values: attackCategories.map(
+                                (category) => totalCount[category]
+                            ),
+                            labels: attackCategories,
+                            type: "pie",
+                        },
+                    ]}
+                    layout={{
+                        title: "Pie Chart of different attack categories",
                     }}
                 />
             )}
