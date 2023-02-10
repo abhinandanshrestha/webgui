@@ -34,7 +34,9 @@ function Form() {
 
     const handleFormDataCSV = (e) => {
         const name = e.target.name;
-        const value = e.target.value;
+        const value = name === "allData" ? e.target.checked : e.target.value;
+        console.log("name:::", name);
+        console.log("value:::", value);
         dispatch(updateFormDataCSV([name, value]));
     };
 
@@ -128,14 +130,24 @@ function Form() {
                     accept=".csv"
                 />
                 <br />
-                Row Number:{" "}
                 <input
-                    type="number"
-                    name="line_no"
-                    value={formDataCSV["line_no"]}
+                    type="checkbox"
+                    name="allData"
+                    value="allData"
                     onChange={handleFormDataCSV}
                 />
+                <label htmlFor="allData">Test All Data</label>
                 <br />
+                {!formDataCSV["allData"] && "Row Number: "}
+                {!formDataCSV["allData"] && (
+                    <input
+                        type="number"
+                        name="line_no"
+                        value={formDataCSV["line_no"]}
+                        onChange={handleFormDataCSV}
+                    />
+                )}
+                {!formDataCSV["allData"] && <br />}
                 CSV Format:
                 <input
                     type="radio"

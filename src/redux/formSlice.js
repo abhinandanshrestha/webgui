@@ -88,7 +88,7 @@ cols.forEach((col) => {
 const initialState = {
     formData: fd,
     cols: cols,
-    formDataCSV: { file: "", line_no: "", csvformat: "" },
+    formDataCSV: { file: "", line_no: "", csvformat: "", allData: false },
     formPrediction: undefined,
     formCSVPrediction: undefined,
 };

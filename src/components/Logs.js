@@ -5,7 +5,7 @@ const moment = require("moment");
 
 export default function Logs() {
     const logs = useSelector((state) => state.log.data);
-    const { attack } = useSelector((state)=>state.log);
+    const { attack } = useSelector((state) => state.log);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,8 +34,7 @@ export default function Logs() {
     // const attack='attack';
 
     const logEntries = logs.map((l, index) => (
-        
-        <tr className={l.split(",")[1] !=11 ? attack : 'benign'} key={index}>
+        <tr className={l.split(",")[1] !== 11 ? attack : "benign"} key={index}>
             <td>{index}</td>
             <td>{moment(parseInt(l.split(",")[0])).format("LLLL")}</td>
             <td>{l.split(",")[1]}</td>
