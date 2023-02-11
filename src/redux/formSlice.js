@@ -92,6 +92,7 @@ const initialState = {
     formPrediction: undefined,
     formCSVPrediction: undefined,
     formCSVPredictionMany: undefined,
+    formCSVActualMany: undefined,
 };
 
 export const formSlice = createSlice({
@@ -131,6 +132,12 @@ export const formSlice = createSlice({
         clearFormCSVPredictionMany: (state) => {
             state.formCSVPredictionMany = undefined;
         },
+        setFormCSVActualMany: (state, actual) => {
+            state.formCSVActualMany = actual.payload;
+        },
+        clearFormCSVActualMany: (state) => {
+            state.formCSVActualMany = undefined;
+        },
     },
 });
 
@@ -144,6 +151,8 @@ export const {
     clearFormCSVPrediction,
     setFormCSVPredictionMany,
     clearFormCSVPredictionMany,
+    setFormCSVActualMany,
+    clearFormCSVActualMany,
 } = formSlice.actions;
 
 export default formSlice.reducer;

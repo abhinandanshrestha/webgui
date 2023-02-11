@@ -10,19 +10,20 @@ import {
     clearFormCSVPrediction,
     setFormCSVPredictionMany,
     clearFormCSVPredictionMany,
+    setFormCSVActualMany,
+    clearFormCSVActualMany,
 } from "../redux/formSlice";
 
 function Form() {
-    const formData = useSelector((state) => state.form.formData);
-    const cols = useSelector((state) => state.form.cols);
-    const formDataCSV = useSelector((state) => state.form.formDataCSV);
-    const formPrediction = useSelector((state) => state.form.formPrediction);
-    const formCSVPrediction = useSelector(
-        (state) => state.form.formCSVPrediction
-    );
-    const formCSVPredictionMany = useSelector(
-        (state) => state.form.formCSVPredictionMany
-    );
+    const {
+        formData,
+        cols,
+        formDataCSV,
+        formPrediction,
+        formCSVPrediction,
+        formCSVPredictionMany,
+        formCSVActualMany,
+    } = useSelector((state) => state.form);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -79,8 +80,14 @@ function Form() {
                 if (formDataCSV.allData) {
                     dispatch(clearFormCSVPrediction());
                     dispatch(setFormCSVPredictionMany(data.predictions));
+                    if (data.label.length) {
+                        dispatch(setFormCSVActualMany(data.label));
+                    } else {
+                        dispatch(clearFormCSVActualMany());
+                    }
                 } else {
                     dispatch(clearFormCSVPredictionMany());
+                    dispatch(clearFormCSVActualMany());
                     dispatch(setFormCSVPrediction(data.prediction));
                 }
             });
@@ -194,12 +201,14 @@ function Form() {
                 </span>
             )}
             {formCSVPredictionMany && (
+                // <div>
                 <table>
                     <thead>
                         <tr>
                             <td>S.No.</td>
                             <td>Predicted Category</td>
                             <td>Category Label</td>
+                            {formCSVActualMany && <td>Actual </td>}
                         </tr>
                     </thead>
                     <tbody>
@@ -208,10 +217,14 @@ function Form() {
                                 <td>{index + 1}</td>
                                 <td>{prediction[1]}</td>
                                 <td>{prediction[2]}</td>
+                                {formCSVActualMany && (
+                                    <td>{formCSVActualMany[index]}</td>
+                                )}
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                // </div>
             )}
         </div>
     );
