@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 * {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
 
 .container {
@@ -85,6 +86,45 @@ a {
     color: black;
     overflow: scroll;
 }
+
+.showMore {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+    padding: 20px;
+}
+
+.showMore > div {
+    flex: 0 0 30%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid green;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.showMore > div:last-child {
+    border: none;
+    padding: 0;
+}
+
+.showMore > div > button {
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    border: 2px solid rgb(42, 12, 153);
+    color: rgb(42, 12, 153);
+    border-radius: 10px;
+}
+
+.showMore > div > button:hover {
+    background-color: #181414;
+    color: rgb(221, 219, 98);
+}
+
 /* 
 .charts {
     background: white;
@@ -135,7 +175,7 @@ a {
     margin-top: 20px;
 }
 
-* table thead{
+* table thead {
     background: #333;
     color: white;
 }
@@ -218,12 +258,12 @@ button:after {
     height: 300px;
 } */
 
-.attack{
+.attack {
     background: rgb(255, 80, 80);
     /* color: white; */
 }
 
-.benign{
-    background:rgb(152, 255, 152);
+.benign {
+    background: rgb(152, 255, 152);
     /* color:white */
 }

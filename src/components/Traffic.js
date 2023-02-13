@@ -64,11 +64,11 @@ export default function Traffic() {
     if (showMoreRowNumber !== undefined) {
         const showMoreContent = trafficData[showMoreRowNumber].map(
             (data, index) => (
-                <p key={index}>
+                <div key={index}>
                     {trafficCols[index]}
                     {":"}
                     {data}
-                </p>
+                </div>
             )
         );
 
@@ -80,8 +80,12 @@ export default function Traffic() {
             <div className="traffic">
                 <h1>Row: {showMoreRowNumber}</h1>
                 <hr />
-                {showMoreContent}
-                <button onClick={closeShowMore}>Close</button>
+                <div class="showMore">
+                    {showMoreContent}
+                    <div>
+                        <button onClick={closeShowMore}>Close</button>
+                    </div>
+                </div>
             </div>
         );
     } else {
