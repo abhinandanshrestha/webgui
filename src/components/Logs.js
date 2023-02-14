@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateLog } from "../redux/logSlice";
-const moment = require("moment");
 
 export default function Logs() {
     const logs = useSelector((state) => state.log.data);
@@ -31,12 +30,13 @@ export default function Logs() {
         };
     }, [dispatch, logs.length]);
 
-    // const attack='attack';
-
     const logEntries = logs.map((l, index) => (
-        <tr className={parseInt(l.split(",")[1]) !== 11 ? attack : "benign"} key={index}>
+        <tr
+            className={parseInt(l.split(",")[1]) !== 11 ? attack : "benign"}
+            key={index}
+        >
             <td>{index}</td>
-            <td>{moment(parseInt(l.split(",")[0])).format("LLLL")}</td>
+            <td>{l.split(",")[0]}</td>
             <td>{l.split(",")[1]}</td>
             <td>{l.split(",")[2]}</td>
         </tr>

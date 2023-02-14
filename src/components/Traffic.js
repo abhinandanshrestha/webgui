@@ -80,7 +80,7 @@ export default function Traffic() {
             <div className="traffic">
                 <h1>Row: {showMoreRowNumber}</h1>
                 <hr />
-                <div class="showMore">
+                <div className="showMore">
                     {showMoreContent}
                     <div>
                         <button onClick={closeShowMore}>Close</button>
