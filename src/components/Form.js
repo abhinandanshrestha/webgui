@@ -106,126 +106,138 @@ function Form() {
 
     return (
         <div className="form">
-            <center>
-                <h3>Test your data</h3>
-            </center>
-            <br />
-            <form onSubmit={handleSubmit}>
-                {textBoxes}
-                <br />
-                <br />
-                <center>
-                    <button className="form-submit-button" type="submit">
-                        Submit
-                    </button>
-                </center>
-            </form>
-            {formPrediction && (
-                <span>
-                    {formPrediction.attack ? (
-                        <p>Predicted: Attack</p>
-                    ) : (
-                        <p>Predicted: Normal</p>
-                    )}
-                    {formPrediction.attack && (
-                        <p>Attack Type: {formPrediction.class}</p>
-                    )}
-                </span>
-            )}
-            <br />
-            <hr />
-            <form onSubmit={handleCSVSubmit}>
-                <br />
-                <center>
-                    <h3>Test data from CSV</h3>
-                </center>
-                Upload your csv:{" "}
-                <input
-                    type="file"
-                    onChange={handleFormDataCSV}
-                    value={formDataCSV["file"]}
-                    name="file"
-                    accept=".csv"
-                />
-                <br />
-                <input
-                    type="checkbox"
-                    name="allData"
-                    value="allData"
-                    onChange={handleFormDataCSV}
-                />
-                <label htmlFor="allData">Test All Data</label>
-                <br />
-                {!formDataCSV["allData"] && "Row Number: "}
-                {!formDataCSV["allData"] && (
-                    <input
-                        type="number"
-                        name="line_no"
-                        value={formDataCSV["line_no"]}
-                        onChange={handleFormDataCSV}
-                    />
+            <div className="dataForm">
+                <div>
+                    <h3>Test your data</h3>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div>{textBoxes}</div>
+                    <div>
+                        <button className="form-submit-button" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                {formPrediction && (
+                    <span>
+                        {formPrediction.attack ? (
+                            <p>Predicted: Attack</p>
+                        ) : (
+                            <p>Predicted: Normal</p>
+                        )}
+                        {formPrediction.attack && (
+                            <p>Attack Type: {formPrediction.class}</p>
+                        )}
+                    </span>
                 )}
-                {!formDataCSV["allData"] && <br />}
-                CSV Format:
-                <input
-                    type="radio"
-                    name="csvformat"
-                    value="cicflowmeter"
-                    onChange={handleFormDataCSV}
-                />
-                <label htmlFor="cicflowmeter">cicflowmeter</label>
-                <input
-                    type="radio"
-                    name="csvformat"
-                    value="cicids2017"
-                    onChange={handleFormDataCSV}
-                />
-                <label htmlFor="cicids2017">CICIDS2017</label>
-                <center>
-                    <button className="form-submit-button" type="submit">
-                        Submit
-                    </button>
-                </center>
-            </form>
-            <br />
-            {formCSVPrediction && (
-                <span>
-                    {formCSVPrediction.attack ? (
-                        <p>Predicted: Attack</p>
-                    ) : (
-                        <p>Predicted: Normal</p>
+            </div>
+            <hr />
+            <div className="csvForm">
+                <div>
+                    <h3>Test data from CSV</h3>
+                </div>
+                <form onSubmit={handleCSVSubmit}>
+                    <div>
+                        Upload your csv:&nbsp;&nbsp;
+                        <input
+                            type="file"
+                            onChange={handleFormDataCSV}
+                            value={formDataCSV["file"]}
+                            name="file"
+                            accept=".csv"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            name="allData"
+                            value="allData"
+                            onChange={handleFormDataCSV}
+                        />
+                        <label htmlFor="allData">
+                            &nbsp;&nbsp;Test All Data
+                        </label>
+                    </div>
+                    {!formDataCSV["allData"] && (
+                        <div>
+                            Row Number:&nbsp;&nbsp;
+                            <input
+                                type="number"
+                                name="line_no"
+                                value={formDataCSV["line_no"]}
+                                onChange={handleFormDataCSV}
+                            />
+                        </div>
                     )}
-                    {formCSVPrediction.attack && (
-                        <p>Attack Type: {formCSVPrediction.class}</p>
-                    )}
-                </span>
-            )}
-            {formCSVPredictionMany && (
-                // <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>S.No.</td>
-                            <td>Predicted Category</td>
-                            <td>Category Label</td>
-                            {formCSVActualMany && <td>Actual </td>}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {formCSVPredictionMany.map((prediction, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{prediction[1]}</td>
-                                <td>{prediction[2]}</td>
-                                {formCSVActualMany && (
-                                    <td>{formCSVActualMany[index]}</td>
+                    <div>
+                        CSV Format:&nbsp;&nbsp;
+                        <input
+                            type="radio"
+                            name="csvformat"
+                            value="cicflowmeter"
+                            onChange={handleFormDataCSV}
+                        />
+                        &nbsp;&nbsp;
+                        <label htmlFor="cicflowmeter">cicflowmeter</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input
+                            type="radio"
+                            name="csvformat"
+                            value="cicids2017"
+                            onChange={handleFormDataCSV}
+                        />
+                        &nbsp;&nbsp;
+                        <label htmlFor="cicids2017">CICIDS2017</label>
+                    </div>
+                    <div>
+                        <button className="form-submit-button" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                {formCSVPrediction && (
+                    <div>
+                        {formCSVPrediction.attack ? (
+                            <p>Predicted: Attack</p>
+                        ) : (
+                            <p>Predicted: Normal</p>
+                        )}
+                        {formCSVPrediction.attack && (
+                            <p>Attack Type: {formCSVPrediction.class}</p>
+                        )}
+                    </div>
+                )}
+                {formCSVPredictionMany && (
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>S.No.</td>
+                                    <td>Predicted Category</td>
+                                    <td>Category Label</td>
+                                    {formCSVActualMany && <td>Actual </td>}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {formCSVPredictionMany.map(
+                                    (prediction, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{prediction[1]}</td>
+                                            <td>{prediction[2]}</td>
+                                            {formCSVActualMany && (
+                                                <td>
+                                                    {formCSVActualMany[index]}
+                                                </td>
+                                            )}
+                                        </tr>
+                                    )
                                 )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                // </div>
-            )}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

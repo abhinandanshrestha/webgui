@@ -35,13 +35,44 @@
     background-color: white;
     width: 100%;
     overflow: scroll;
+    border: 1px solid green;
 }
-.form input {
-    width: 110px;
-    margin: 2px;
+.dataForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+.dataForm div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 10px;
+}
+.dataForm div input {
+    padding: 10px;
+    margin: 5px 10px;
+    flex: 0 0 10%;
+}
+.csvForm {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.csvForm div {
+    flex: 0 0 80%;
+    display: flex;
+    margin: 5px 10px;
     padding: 10px;
 }
-
+.csvForm div:last-child,
+.csvForm div:first-child {
+    justify-content: center;
+}
 .form-submit-button {
     background: #ff2525;
     color: #fff;
