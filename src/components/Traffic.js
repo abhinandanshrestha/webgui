@@ -17,7 +17,7 @@ export default function Traffic() {
     );
 
     useEffect(() => {
-        const container = document.getElementById("form");
+        const container = document.getElementById("traffic");
         container.scrollTop = scrollPosition;
 
         const handleScroll = (event) => {
