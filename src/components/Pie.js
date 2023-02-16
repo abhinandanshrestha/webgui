@@ -30,7 +30,7 @@ export default function Pie() {
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
-            dispatch(updateScrollPosition[("pie", scrollTop)]);
+            dispatch(updateScrollPosition(["pie", scrollTop]));
         };
 
         container.addEventListener("scroll", handleScroll);

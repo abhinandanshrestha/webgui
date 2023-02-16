@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
-    resetFormData,
+    // resetFormData,
     updateFormData,
-    resetformDataCSV,
+    // resetformDataCSV,
     updateFormDataCSV,
     setFormPrediction,
     setFormCSVPrediction,
@@ -40,10 +40,6 @@ export default function Form() {
         };
 
         container.addEventListener("scroll", handleScroll);
-
-        dispatch(resetFormData());
-        dispatch(resetformDataCSV());
-        dispatch(setFormPrediction(undefined));
 
         return () => {
             container.removeEventListener("scroll", handleScroll);
@@ -169,8 +165,8 @@ export default function Form() {
                         <input
                             type="checkbox"
                             name="allData"
-                            value="allData"
                             onChange={handleFormDataCSV}
+                            checked={formDataCSV.allData}
                         />
                         <label htmlFor="allData">
                             &nbsp;&nbsp;Test All Data
@@ -183,6 +179,11 @@ export default function Form() {
                                 type="number"
                                 name="line_no"
                                 value={formDataCSV["line_no"]}
+                                checked={
+                                    formDataCSV.csvformat === "cicflowmeter"
+                                        ? true
+                                        : false
+                                }
                                 onChange={handleFormDataCSV}
                             />
                         </div>
@@ -202,6 +203,11 @@ export default function Form() {
                             type="radio"
                             name="csvformat"
                             value="cicids2017"
+                            checked={
+                                formDataCSV.csvformat === "cicids2017"
+                                    ? true
+                                    : false
+                            }
                             onChange={handleFormDataCSV}
                         />
                         &nbsp;&nbsp;
