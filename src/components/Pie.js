@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
+import { updateScrollPosition } from "../redux/scrollSlice";
 import Plot from "react-plotly.js";
 
 export default function Pie() {
     const categoryCount = useSelector((state) => state.scatter.categoryCount);
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
+    );
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.pie
     );
     const dispatch = useDispatch();
 
@@ -19,26 +23,18 @@ export default function Pie() {
             });
         });
     }
-    // const attackTypePlots = attackCategories.map((category, index) => (
-    //     <Plot
-    //         key={index}
-    //         data={[
-    //             {
-    //                 x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    //                 y: categoryCount[category],
-    //                 type: "bar",
-    //                 name: category,
-    //             },
-    //         ]}
-    //         layout={{
-    //             xaxis: { title: "Time (min)" },
-    //             yaxis: { title: "Traffic" },
-    //             title: `Attack ${category}`,
-    //         }}
-    //     />
-    // ));
 
     useEffect(() => {
+        const container = document.getElementById("pie");
+        container.scrollTop = scrollPosition;
+
+        const handleScroll = (event) => {
+            const scrollTop = event.target.scrollTop;
+            dispatch(updateScrollPosition[("pie", scrollTop)]);
+        };
+
+        container.addEventListener("scroll", handleScroll);
+
         const fetchScatterData = () => {
             fetch("http://localhost:3001/get-scatterData", {
                 method: "GET",
@@ -54,11 +50,12 @@ export default function Pie() {
         const scatterHandle = setInterval(fetchScatterData, 5000);
         return () => {
             clearInterval(scatterHandle);
+            container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch]);
+    }, [dispatch, scrollPosition]);
 
     return categoryCount ? (
-        <div className="scatter">
+        <div className="scatter" id="pie">
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -95,7 +92,7 @@ export default function Pie() {
             {/* {attackTypePlots && attackTypePlots} */}
         </div>
     ) : (
-        <div className="scatter">
+        <div className="scatter" id="pie">
             <h1>Creating Pie Chart</h1>
         </div>
     );

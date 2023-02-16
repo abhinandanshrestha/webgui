@@ -4,6 +4,7 @@ import trafficReducer from "./trafficSlice";
 import formReducer from "./formSlice";
 import logReducer from "./logSlice";
 import scatterReducer from "./scatterSlice";
+import scrollReducer from "./scrollSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         form: formReducer,
         log: logReducer,
         scatter: scatterReducer,
+        scroll: scrollReducer,
     },
 });

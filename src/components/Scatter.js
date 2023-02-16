@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
+import { updateScrollPosition } from "../redux/scrollSlice";
 import Plot from "react-plotly.js";
 
 export default function Scatter() {
@@ -8,9 +9,9 @@ export default function Scatter() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
-    // const normal = useSelector((state) => state.scatter.normal);
-    // const attack = useSelector((state) => state.scatter.attack);
-    // const attackTypes = useSelector((state) => state.scatter.attackTypes);
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.scatter
+    );
     const dispatch = useDispatch();
 
     const attackTypePlots = attackCategories.map((category, index) => (
@@ -37,6 +38,16 @@ export default function Scatter() {
     ));
 
     useEffect(() => {
+        const container = document.getElementById("scatter");
+        container.scrollTop = scrollPosition;
+
+        const handleScroll = (event) => {
+            const scrollTop = event.target.scrollTop;
+            dispatch(updateScrollPosition(["scatter", scrollTop]));
+        };
+
+        container.addEventListener("scroll", handleScroll);
+
         const fetchScatterData = () => {
             fetch("http://localhost:3001/get-scatterData", {
                 method: "GET",
@@ -52,11 +63,12 @@ export default function Scatter() {
         const scatterHandle = setInterval(fetchScatterData, 5000);
         return () => {
             clearInterval(scatterHandle);
+            container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch]);
+    }, [dispatch, scrollPosition]);
 
     return categoryCount ? (
-        <div className="scatter">
+        <div className="scatter" id="scatter">
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -93,7 +105,7 @@ export default function Scatter() {
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
-        <div className="scatter">
+        <div className="scatter" id="scatter">
             <h1>Creating Scatter Plot</h1>
         </div>
     );

@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
+import { updateScrollPosition } from "../redux/scrollSlice";
 import Plot from "react-plotly.js";
 
 export default function Bar() {
     const categoryCount = useSelector((state) => state.scatter.categoryCount);
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
+    );
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.bar
     );
     const dispatch = useDispatch();
 
@@ -30,6 +34,16 @@ export default function Bar() {
     ));
 
     useEffect(() => {
+        const container = document.getElementById("bar");
+        container.scrollTop = scrollPosition;
+
+        const handleScroll = (event) => {
+            const scrollTop = event.target.scrollTop;
+            dispatch(updateScrollPosition(["bar", scrollTop]));
+        };
+
+        container.addEventListener("scroll", handleScroll);
+
         const fetchScatterData = () => {
             fetch("http://localhost:3001/get-scatterData", {
                 method: "GET",
@@ -45,11 +59,12 @@ export default function Bar() {
         const scatterHandle = setInterval(fetchScatterData, 5000);
         return () => {
             clearInterval(scatterHandle);
+            container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch]);
+    }, [dispatch, scrollPosition]);
 
     return categoryCount ? (
-        <div className="scatter">
+        <div className="scatter" id="bar">
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -78,7 +93,7 @@ export default function Bar() {
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
-        <div className="scatter">
+        <div className="scatter" id="bar">
             <h1>Creating Bar Graph</h1>
         </div>
     );

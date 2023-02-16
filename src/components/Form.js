@@ -13,8 +13,9 @@ import {
     setFormCSVActualMany,
     clearFormCSVActualMany,
 } from "../redux/formSlice";
+import { updateScrollPosition } from "../redux/scrollSlice";
 
-function Form() {
+export default function Form() {
     const {
         formData,
         cols,
@@ -24,13 +25,30 @@ function Form() {
         formCSVPredictionMany,
         formCSVActualMany,
     } = useSelector((state) => state.form);
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.form
+    );
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const container = document.getElementById("form");
+        container.scrollTop = scrollPosition;
+
+        const handleScroll = (event) => {
+            const scrollTop = event.target.scrollTop;
+            dispatch(updateScrollPosition(["form", scrollTop]));
+        };
+
+        container.addEventListener("scroll", handleScroll);
+
         dispatch(resetFormData());
         dispatch(resetformDataCSV());
         dispatch(setFormPrediction(undefined));
-    }, [dispatch]);
+
+        return () => {
+            container.removeEventListener("scroll", handleScroll);
+        };
+    }, [dispatch, scrollPosition]);
 
     const handleFormData = (e) => {
         const name = e.target.name;
@@ -105,7 +123,7 @@ function Form() {
     ));
 
     return (
-        <div className="form">
+        <div className="form" id="form">
             <div className="dataForm">
                 <div>
                     <h3>Test your data</h3>
@@ -241,5 +259,3 @@ function Form() {
         </div>
     );
 }
-
-export default Form;

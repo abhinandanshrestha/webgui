@@ -14,14 +14,12 @@ import Bar from "./components/Bar";
 import Form from "./components/Form";
 import Pie from "./components/Pie";
 
-// TODO ---> Remember the scroll state of components when returning back after visiting another component
-
 function App() {
     const dispatch = useDispatch();
     const monitorState = useSelector((state) => state.monitor.value);
     const lastTrafficType = useSelector((state) => state.log.lastTrafficType);
     const customTesting = useSelector((state) => state.monitor.customTesting);
-    const { attack } = useSelector((state)=>state.log);
+    const { attack } = useSelector((state) => state.log);
 
     useEffect(() => {
         const fetchMonitorState = () => {
@@ -63,7 +61,7 @@ function App() {
                         <Route exact path="/pie" element={<Pie />} />
                     </Routes>
                 </div>
-                <div className={`tala_div ${attack}`}  id="alert">
+                <div className={`tala_div ${attack}`} id="alert">
                     <Alert testData={lastTrafficType} />
                 </div>
             </div>

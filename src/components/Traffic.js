@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { appendData, updateShowMoreRowNumber } from "../redux/trafficSlice";
+import { updateScrollPosition } from "../redux/scrollSlice";
 
 export default function Traffic() {
     const dispatch = useDispatch();
@@ -11,8 +12,21 @@ export default function Traffic() {
     const showMoreRowNumber = useSelector(
         (state) => state.traffic.showMoreRowNumber
     );
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.traffic
+    );
 
     useEffect(() => {
+        const container = document.getElementById("form");
+        container.scrollTop = scrollPosition;
+
+        const handleScroll = (event) => {
+            const scrollTop = event.target.scrollTop;
+            dispatch(updateScrollPosition(["traffic", scrollTop]));
+        };
+
+        container.addEventListener("scroll", handleScroll);
+
         const fetchTrafficData = () => {
             const url = `http://localhost:3001/getTrafficData?dataCount=${encodeURIComponent(
                 trafficData.length
@@ -34,8 +48,9 @@ export default function Traffic() {
 
         return () => {
             clearInterval(trafficHandle);
+            container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, trafficData.length]);
+    }, [dispatch, trafficData.length, scrollPosition]);
 
     const showMore = (e) => {
         const rowNumber = e.target.getAttribute("data-index");
@@ -77,7 +92,7 @@ export default function Traffic() {
         };
 
         return (
-            <div className="traffic">
+            <div className="traffic" id="traffic">
                 <h1>Row: {showMoreRowNumber}</h1>
                 <hr />
                 <div className="showMore">
@@ -91,7 +106,7 @@ export default function Traffic() {
     } else {
         if (trafficData.length) {
             return (
-                <div className="traffic">
+                <div className="traffic" id="traffic">
                     <table>
                         <thead>
                             <tr>{tableHead}</tr>
@@ -102,7 +117,7 @@ export default function Traffic() {
             );
         } else {
             return (
-                <div className="traffic">
+                <div className="traffic" id="traffic">
                     <h1>Waiting for Traffic Data</h1>
                 </div>
             );
