@@ -114,7 +114,7 @@
     width: 100%;
     text-align: center;
     background-color: #181818;
-    color: #bebebe;
+    color: #fff;
 }
 /* titleHolder end */
 
@@ -284,23 +284,30 @@
     font-size: 60px;
 }
 
+/* Logs start */
 .logs {
-    background-color: #fff;
+    background-color: #585858;
+    color: #fff;
     width: 100%;
-    /* height: auto; */
-    /* padding: 20px; */
     overflow: scroll;
 }
-
-.logs h3 {
-    position: sticky;
-    top: 0;
-    background-color: #222;
-    color: white;
-    margin: 0;
-    padding: 20px;
+/* .logs button {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+} */
+.attack {
+    background: rgb(255, 80, 80);
+    color: #000;
+}
+.benign {
+    background: rgb(152, 255, 152);
+    color: #000;
 }
 
+/* Logs end */
+
+/* table start */
 * table {
     width: 90%;
     margin: auto;
@@ -308,26 +315,18 @@
     border-collapse: collapse;
     margin-top: 20px;
 }
-
 * table thead {
     background: #333;
     color: white;
 }
-
 * table tr {
     border: 1px solid gray;
 }
-
 * table td,
 * table th {
     padding: 10px;
 }
-
-.logs button {
-    position: fixed;
-    top: 5%;
-    right: 5%;
-}
+/* table end */
 
 .scatter {
     width: 100%;
@@ -375,13 +374,3 @@
 /* #alert {
     height: 300px;
 } */
-
-.attack {
-    background: rgb(255, 80, 80);
-    /* color: white; */
-}
-
-.benign {
-    background: rgb(152, 255, 152);
-    /* color:white */
-}

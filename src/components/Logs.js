@@ -7,22 +7,24 @@ export default function Logs() {
     const logs = useSelector((state) => state.log.data);
     const { attack } = useSelector((state) => state.log);
     const containerRef = useRef(null);
-    const scrollPosition =
-        useSelector((state) => state.scroll.scrollPositions.log) || 0;
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.log
+    );
     const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const container = containerRef.current;
-        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
             dispatch(updateScrollPosition(["log", scrollTop]));
         };
 
-        container.addEventListener("scroll", handleScroll);
-
+        if (container) {
+            container.scrollTop = storedScrollPosition.current;
+            container.addEventListener("scroll", handleScroll);
+        }
         const fetchLogData = () => {
             const url = `http://localhost:3001/getLogData?logCount=${encodeURIComponent(
                 logs.length
@@ -42,7 +44,9 @@ export default function Logs() {
 
         return () => {
             clearInterval(logHandle);
-            container.removeEventListener("scroll", handleScroll);
+            if (container) {
+                container.removeEventListener("scroll", handleScroll);
+            }
         };
     }, [dispatch, logs.length]);
 
@@ -60,9 +64,10 @@ export default function Logs() {
 
     return logs.length ? (
         <div className="logs" ref={containerRef}>
-            <h3>Logs</h3>
+            <div className="titleHolder">
+                <h1>Logs</h1>
+            </div>
             {/* <button onClick={fetchLogData}>Refresh</button> */}
-            <br />
             <table>
                 <thead>
                     <tr>
@@ -76,7 +81,7 @@ export default function Logs() {
             </table>
         </div>
     ) : (
-        <div className="logs" ref={containerRef}>
+        <div className="loading">
             <h1>Fetching Logs</h1>
         </div>
     );

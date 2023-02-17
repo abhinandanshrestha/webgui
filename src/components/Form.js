@@ -25,8 +25,9 @@ export default function Form() {
         formCSVPredictionMany,
         formCSVActualMany,
     } = useSelector((state) => state.form);
-    const scrollPosition =
-        useSelector((state) => state.scroll.scrollPositions.form) || 0;
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.form
+    );
     const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
     const containerRef = useRef(null);
