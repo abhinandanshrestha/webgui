@@ -121,6 +121,9 @@ export default function Form() {
 
     return (
         <div className="form" ref={containerRef}>
+            <div className="titleHolder">
+                <h1>Form</h1>
+            </div>
             <div className="dataForm">
                 <div>
                     <h3>Test your data</h3>
