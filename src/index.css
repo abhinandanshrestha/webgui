@@ -374,6 +374,12 @@
 }
 /* Scatter end */
 
-/* #alert {
+/* Alert begin */
+.alert {
     height: 300px;
-} */
+}
+.alert div {
+    height: 100%;
+    width: 100%;
+}
+/* Alert end */
