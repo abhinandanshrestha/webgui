@@ -10,8 +10,9 @@ export default function Scatter() {
         (state) => state.scatter.attackCategories
     );
     const containerRef = useRef(null);
-    const scrollPosition =
-        useSelector((state) => state.scroll.scrollPositions.scatter) || 0;
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.scatter
+    );
     const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
@@ -40,14 +41,16 @@ export default function Scatter() {
 
     useEffect(() => {
         const container = containerRef.current;
-        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
             dispatch(updateScrollPosition(["scatter", scrollTop]));
         };
 
-        container.addEventListener("scroll", handleScroll);
+        if (container) {
+            container.scrollTop = storedScrollPosition.current;
+            container.addEventListener("scroll", handleScroll);
+        }
 
         const fetchScatterData = () => {
             fetch("http://localhost:3001/get-scatterData", {
@@ -64,12 +67,17 @@ export default function Scatter() {
         const scatterHandle = setInterval(fetchScatterData, 5000);
         return () => {
             clearInterval(scatterHandle);
-            container.removeEventListener("scroll", handleScroll);
+            if (container) {
+                container.removeEventListener("scroll", handleScroll);
+            }
         };
     }, [dispatch]);
 
     return categoryCount ? (
         <div className="scatter" ref={containerRef}>
+            <div className="titleHolder">
+                <h1>Scatter Plot</h1>
+            </div>
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -106,7 +114,7 @@ export default function Scatter() {
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
-        <div className="scatter" ref={containerRef}>
+        <div className="loading">
             <h1>Creating Scatter Plot</h1>
         </div>
     );

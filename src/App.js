@@ -68,7 +68,7 @@ function App() {
         </Router>
     ) : (
         <Router>
-            <Landing />;
+            <Landing />
         </Router>
     );
 }

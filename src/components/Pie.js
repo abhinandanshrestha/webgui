@@ -27,14 +27,16 @@ export default function Pie() {
 
     useEffect(() => {
         const container = containerRef.current;
-        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
             dispatch(updateScrollPosition(["pie", scrollTop]));
         };
 
-        container.addEventListener("scroll", handleScroll);
+        if (container) {
+            container.scrollTop = storedScrollPosition.current;
+            container.addEventListener("scroll", handleScroll);
+        }
 
         const fetchScatterData = () => {
             fetch("http://localhost:3001/get-scatterData", {
@@ -51,12 +53,17 @@ export default function Pie() {
         const scatterHandle = setInterval(fetchScatterData, 5000);
         return () => {
             clearInterval(scatterHandle);
-            container.removeEventListener("scroll", handleScroll);
+            if (container) {
+                container.removeEventListener("scroll", handleScroll);
+            }
         };
     }, [dispatch]);
 
     return categoryCount ? (
         <div className="scatter" ref={containerRef}>
+            <div className="titleHolder">
+                <h1>Pie Chart</h1>
+            </div>
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -93,7 +100,7 @@ export default function Pie() {
             {/* {attackTypePlots && attackTypePlots} */}
         </div>
     ) : (
-        <div className="scatter" ref={containerRef}>
+        <div className="loading">
             <h1>Creating Pie Chart</h1>
         </div>
     );
