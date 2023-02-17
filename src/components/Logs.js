@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateLog } from "../redux/logSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
@@ -6,14 +6,15 @@ import { updateScrollPosition } from "../redux/scrollSlice";
 export default function Logs() {
     const logs = useSelector((state) => state.log.data);
     const { attack } = useSelector((state) => state.log);
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.log
-    );
+    const containerRef = useRef(null);
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.log) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const container = document.getElementById("logs");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -43,7 +44,7 @@ export default function Logs() {
             clearInterval(logHandle);
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, logs.length, scrollPosition]);
+    }, [dispatch, logs.length]);
 
     const logEntries = logs.map((l, index) => (
         <tr
@@ -58,7 +59,7 @@ export default function Logs() {
     ));
 
     return logs.length ? (
-        <div className="logs" id="logs">
+        <div className="logs" ref={containerRef}>
             <h3>Logs</h3>
             {/* <button onClick={fetchLogData}>Refresh</button> */}
             <br />
@@ -75,7 +76,7 @@ export default function Logs() {
             </table>
         </div>
     ) : (
-        <div className="logs" id="logs">
+        <div className="logs" ref={containerRef}>
             <h1>Fetching Logs</h1>
         </div>
     );

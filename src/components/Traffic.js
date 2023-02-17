@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { appendData, updateShowMoreRowNumber } from "../redux/trafficSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
@@ -12,13 +12,14 @@ export default function Traffic() {
     const showMoreRowNumber = useSelector(
         (state) => state.traffic.showMoreRowNumber
     );
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.traffic
-    );
+    const containerRef = useRef(null);
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.traffic) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
 
     useEffect(() => {
-        const container = document.getElementById("traffic");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -50,7 +51,7 @@ export default function Traffic() {
             clearInterval(trafficHandle);
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, trafficData.length, scrollPosition]);
+    }, [dispatch, trafficData.length]);
 
     const showMore = (e) => {
         const rowNumber = e.target.getAttribute("data-index");
@@ -92,7 +93,7 @@ export default function Traffic() {
         };
 
         return (
-            <div className="traffic" id="traffic">
+            <div className="traffic" ref={containerRef}>
                 <h1>Row: {showMoreRowNumber}</h1>
                 <hr />
                 <div className="showMore">
@@ -106,7 +107,7 @@ export default function Traffic() {
     } else {
         if (trafficData.length) {
             return (
-                <div className="traffic" id="traffic">
+                <div className="traffic" ref={containerRef}>
                     <table>
                         <thead>
                             <tr>{tableHead}</tr>
@@ -117,7 +118,7 @@ export default function Traffic() {
             );
         } else {
             return (
-                <div className="traffic" id="traffic">
+                <div className="traffic" ref={containerRef}>
                     <h1>Waiting for Traffic Data</h1>
                 </div>
             );

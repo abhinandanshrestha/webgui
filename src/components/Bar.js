@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
@@ -9,9 +9,10 @@ export default function Bar() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.bar
-    );
+    const containerRef = useRef(null);
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.bar) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
     const attackTypePlots = attackCategories.map((category, index) => (
@@ -34,8 +35,8 @@ export default function Bar() {
     ));
 
     useEffect(() => {
-        const container = document.getElementById("bar");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -61,10 +62,10 @@ export default function Bar() {
             clearInterval(scatterHandle);
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, scrollPosition]);
+    }, [dispatch]);
 
     return categoryCount ? (
-        <div className="scatter" id="bar">
+        <div className="scatter" ref={containerRef}>
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -93,7 +94,7 @@ export default function Bar() {
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
-        <div className="scatter" id="bar">
+        <div className="scatter" ref={containerRef}>
             <h1>Creating Bar Graph</h1>
         </div>
     );

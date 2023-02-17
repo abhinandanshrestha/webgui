@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import {
     // resetFormData,
     updateFormData,
@@ -25,14 +25,15 @@ export default function Form() {
         formCSVPredictionMany,
         formCSVActualMany,
     } = useSelector((state) => state.form);
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.form
-    );
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.form) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
+    const containerRef = useRef(null);
 
     useEffect(() => {
-        const container = document.getElementById("form");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -44,7 +45,7 @@ export default function Form() {
         return () => {
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, scrollPosition]);
+    }, [dispatch]);
 
     const handleFormData = (e) => {
         const name = e.target.name;
@@ -119,7 +120,7 @@ export default function Form() {
     ));
 
     return (
-        <div className="form" id="form">
+        <div className="form" ref={containerRef}>
             <div className="dataForm">
                 <div>
                     <h3>Test your data</h3>

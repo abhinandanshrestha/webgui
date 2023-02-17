@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
@@ -9,9 +9,10 @@ export default function Scatter() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.scatter
-    );
+    const containerRef = useRef(null);
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.scatter) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
     const attackTypePlots = attackCategories.map((category, index) => (
@@ -38,8 +39,8 @@ export default function Scatter() {
     ));
 
     useEffect(() => {
-        const container = document.getElementById("scatter");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -65,10 +66,10 @@ export default function Scatter() {
             clearInterval(scatterHandle);
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, scrollPosition]);
+    }, [dispatch]);
 
     return categoryCount ? (
-        <div className="scatter" id="scatter">
+        <div className="scatter" ref={containerRef}>
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -105,7 +106,7 @@ export default function Scatter() {
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
-        <div className="scatter" id="scatter">
+        <div className="scatter" ref={containerRef}>
             <h1>Creating Scatter Plot</h1>
         </div>
     );

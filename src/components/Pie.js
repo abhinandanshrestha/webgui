@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateScatter } from "../redux/scatterSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
@@ -9,9 +9,10 @@ export default function Pie() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
-    const scrollPosition = useSelector(
-        (state) => state.scroll.scrollPositions.pie
-    );
+    const containerRef = useRef(null);
+    const scrollPosition =
+        useSelector((state) => state.scroll.scrollPositions.pie) || 0;
+    const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
     let totalCount = {};
@@ -25,8 +26,8 @@ export default function Pie() {
     }
 
     useEffect(() => {
-        const container = document.getElementById("pie");
-        container.scrollTop = scrollPosition;
+        const container = containerRef.current;
+        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
@@ -52,10 +53,10 @@ export default function Pie() {
             clearInterval(scatterHandle);
             container.removeEventListener("scroll", handleScroll);
         };
-    }, [dispatch, scrollPosition]);
+    }, [dispatch]);
 
     return categoryCount ? (
-        <div className="scatter" id="pie">
+        <div className="scatter" ref={containerRef}>
             {categoryCount["attack"] && (
                 <Plot
                     data={[
@@ -92,7 +93,7 @@ export default function Pie() {
             {/* {attackTypePlots && attackTypePlots} */}
         </div>
     ) : (
-        <div className="scatter" id="pie">
+        <div className="scatter" ref={containerRef}>
             <h1>Creating Pie Chart</h1>
         </div>
     );
