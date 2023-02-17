@@ -32,10 +32,7 @@ export default function Landing(props) {
                 </i>{" "}
                 is not running.
             </div>
-            <hr />
             <button onClick={startMonitoring}>Start Monitoring</button>
-            <br />
-            <hr />
             <Link to={"/form"}>
                 <button onClick={enableCustomTesting}>Test Custom Data</button>
             </Link>

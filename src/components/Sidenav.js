@@ -41,30 +41,45 @@ function Sidenav() {
 
     return (
         <div className="sidenav">
-            <center>
+            <div className="buttonHolder">
                 <span className="material-symbols-outlined">
                     signal_cellular_alt
                 </span>
-            </center>
+            </div>
             {customTesting ? (
-                <Link to="/" onClick={startMonitoring}>
-                    Start Monitoring
-                </Link>
+                <div className="buttonHolder">
+                    <Link to="/" onClick={startMonitoring}>
+                        <button>Start Monitoring</button>
+                    </Link>
+                </div>
             ) : (
-                <div>
-                    <Link to="/">Traffic</Link>
-                    <Link to="/form">Form</Link>
-                    <Link to="/logs">Logs</Link>
-                    <Link to="/scatter">Scatter Plot</Link>
-                    <Link to="/bar">Bar Graph</Link>
-                    <Link to="/pie">Pie Chart</Link>
+                <div className="buttonHolder">
+                    <Link to="/">
+                        <button>Traffic</button>
+                    </Link>
+                    <Link to="/form">
+                        <button>Form</button>
+                    </Link>
+                    <Link to="/logs">
+                        <button>Logs</button>
+                    </Link>
+                    <Link to="/scatter">
+                        <button>Scatter Plot</button>
+                    </Link>
+                    <Link to="/bar">
+                        <button>Bar Graph</button>
+                    </Link>
+                    <Link to="/pie">
+                        <button>Pie Chart</button>
+                    </Link>
                 </div>
             )}
-            <hr />
             {monitorState && (
-                <Link to="/" onClick={stopMonitoring}>
-                    Stop Monitoring
-                </Link>
+                <div className="buttonHolder stopMonitoring">
+                    <Link to="/" onClick={stopMonitoring}>
+                        <button>Stop Monitoring</button>
+                    </Link>
+                </div>
             )}
         </div>
     );

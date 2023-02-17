@@ -24,11 +24,47 @@
 
 .sidenav {
     background-color: #111;
-    /* max-width: 200px; */
-    /* min-width: 200px; */
     width: 20vw;
     height: 100%;
-    /* flex: 2; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.sidenav .buttonHolder {
+    flex: 0 0 100%;
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0;
+    margin: 10px 0;
+}
+.sidenav .buttonHolder button {
+    outline: none;
+    border: 2px solid #adadad;
+    background-color: #0c4c77;
+    color: #dadada;
+    padding: 10px;
+    width: 90%;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: 100ms linear
+}
+.sidenav .buttonHolder button:hover {
+    transform: scale(1.05);
+    background-color: #27e48f;
+    color: #111;
+}
+.sidenav .stopMonitoring button {
+    background-color: #770c0c;
+    color: #dadada;
+}
+.sidenav .stopMonitoring button:hover {
+    background-color: #e23939;
+    color: #000000;
 }
 
 .form {
@@ -93,18 +129,6 @@
     box-shadow: 5px 5px 5px #eee;
     text-shadow: none;
 }
-
-a {
-    padding: 6px 6px 6px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-}
-
-/* :hover {
-    color: #f1f1f1;
-} */
 
 .traffic {
     background: #eee;
@@ -244,45 +268,29 @@ a {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #292929;
+    color: #fff;
 }
 
 .landing button {
-    background: #1aab8a;
+    margin: 10px;
+    background: #1a71ab;
     color: #fff;
-    border: none;
+    border: 2px solid #cf784f;
     position: relative;
     height: 60px;
     font-size: 1.6em;
     padding: 0 2em;
     cursor: pointer;
-    transition: 800ms ease all;
+    transition: 300ms linear;
     outline: none;
+    border-radius: 10px;
 }
 .landing button:hover {
-    background: #fff;
-    color: #1aab8a;
-}
-.landing button:before,
-button:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 2px;
-    width: 0;
-    background: #1aab8a;
-    transition: 400ms ease all;
-}
-.landing button:after {
-    right: inherit;
-    top: inherit;
-    left: 0;
-    bottom: 0;
-}
-.landing button:hover:before,
-.landing button:hover:after {
-    width: 100%;
-    transition: 800ms ease all;
+    background: #27e48f;
+    /* border: 2px solid #1a71ab; */
+    color: #000000;
+    transform: scale(1.1);
 }
 
 /* #alert {
