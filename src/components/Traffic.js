@@ -13,20 +13,23 @@ export default function Traffic() {
         (state) => state.traffic.showMoreRowNumber
     );
     const containerRef = useRef(null);
-    const scrollPosition =
-        useSelector((state) => state.scroll.scrollPositions.traffic) || 0;
+    const scrollPosition = useSelector(
+        (state) => state.scroll.scrollPositions.traffic
+    );
     const storedScrollPosition = useRef(scrollPosition);
 
     useEffect(() => {
         const container = containerRef.current;
-        container.scrollTop = storedScrollPosition.current;
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
             dispatch(updateScrollPosition(["traffic", scrollTop]));
         };
 
-        container.addEventListener("scroll", handleScroll);
+        if (container) {
+            container.scrollTop = storedScrollPosition.current;
+            container.addEventListener("scroll", handleScroll);
+        }
 
         const fetchTrafficData = () => {
             const url = `http://localhost:3001/getTrafficData?dataCount=${encodeURIComponent(
@@ -49,7 +52,9 @@ export default function Traffic() {
 
         return () => {
             clearInterval(trafficHandle);
-            container.removeEventListener("scroll", handleScroll);
+            if (container) {
+                container.removeEventListener("scroll", handleScroll);
+            }
         };
     }, [dispatch, trafficData.length]);
 
@@ -82,8 +87,8 @@ export default function Traffic() {
             (data, index) => (
                 <div key={index}>
                     {trafficCols[index]}
-                    {":"}
-                    {data}
+                    {" : "}
+                    <b>{data}</b>
                 </div>
             )
         );
@@ -93,10 +98,11 @@ export default function Traffic() {
         };
 
         return (
-            <div className="traffic" ref={containerRef}>
-                <h1>Row: {showMoreRowNumber}</h1>
-                <hr />
-                <div className="showMore">
+            <div className="showMore">
+                <div className="titleHolder">
+                    <h1>Row: {showMoreRowNumber}</h1>
+                </div>
+                <div className="contentHolder">
                     {showMoreContent}
                     <div>
                         <button onClick={closeShowMore}>Close</button>
@@ -108,9 +114,15 @@ export default function Traffic() {
         if (trafficData.length) {
             return (
                 <div className="traffic" ref={containerRef}>
+                    <div className="titleHolder">
+                        <h1>Traffic</h1>
+                    </div>
                     <table>
                         <thead>
-                            <tr>{tableHead}</tr>
+                            <tr>
+                                {tableHead}
+                                <th>...</th>
+                            </tr>
                         </thead>
                         <tbody>{tableRows}</tbody>
                     </table>
@@ -118,8 +130,10 @@ export default function Traffic() {
             );
         } else {
             return (
-                <div className="traffic" ref={containerRef}>
-                    <h1>Waiting for Traffic Data</h1>
+                <div className="loading">
+                    <div>
+                        <h1>Waiting for Traffic Data</h1>
+                    </div>
                 </div>
             );
         }
