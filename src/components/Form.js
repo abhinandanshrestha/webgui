@@ -34,10 +34,13 @@ export default function Form() {
 
     useEffect(() => {
         const container = containerRef.current;
-        container.scrollTop = storedScrollPosition.current;
+        if (storedScrollPosition.current !== 0) {
+            container.scrollTop = storedScrollPosition.current;
+        }
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
+            storedScrollPosition.current = scrollTop;
             dispatch(updateScrollPosition(["form", scrollTop]));
         };
 

@@ -338,6 +338,10 @@
     color: #000;
 }
 
+.logs table tr {
+    border-color: #000;
+}
+
 /* Logs end */
 
 /* table start */
@@ -353,7 +357,7 @@
     color: white;
 }
 * table tr {
-    border: 1px solid gray;
+    border: 1px solid #ddd;
 }
 * table td,
 * table th {

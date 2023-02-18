@@ -13,6 +13,7 @@ import Landing from "./components/Landing";
 import Bar from "./components/Bar";
 import Form from "./components/Form";
 import Pie from "./components/Pie";
+import ShowMore from "./components/ShowMore";
 
 function App() {
     const dispatch = useDispatch();
@@ -20,6 +21,9 @@ function App() {
     const lastTrafficType = useSelector((state) => state.log.lastTrafficType);
     const customTesting = useSelector((state) => state.monitor.customTesting);
     const { attack } = useSelector((state) => state.log);
+    const showMoreRowNumber = useSelector(
+        (state) => state.traffic.showMoreRowNumber
+    );
 
     useEffect(() => {
         const fetchMonitorState = () => {
@@ -53,7 +57,13 @@ function App() {
                 <div className="mathi_div">
                     <Sidenav />
                     <Routes>
-                        <Route exact path="/" element={<Traffic />} />
+                        <Route
+                            exact
+                            path="/"
+                            element={
+                                showMoreRowNumber ? <ShowMore /> : <Traffic />
+                            }
+                        />
                         <Route exact path="/form" element={<Form />} />
                         <Route exact path="/logs" element={<Logs />} />
                         <Route exact path="/scatter" element={<Scatter />} />

@@ -18,11 +18,14 @@ export default function Logs() {
 
         const handleScroll = (event) => {
             const scrollTop = event.target.scrollTop;
+            storedScrollPosition.current = scrollTop;
             dispatch(updateScrollPosition(["log", scrollTop]));
         };
 
         if (container) {
-            container.scrollTop = storedScrollPosition.current;
+            if (storedScrollPosition.current !== 0) {
+                container.scrollTop = storedScrollPosition.current;
+            }
             container.addEventListener("scroll", handleScroll);
         }
         const fetchLogData = () => {
