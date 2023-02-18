@@ -237,6 +237,9 @@ export default function Form() {
                             <tr>
                                 <td>Predicted Category</td>
                                 <td>Category Label</td>
+                                {formCSVPrediction["label"] && (
+                                    <td>Actual Label</td>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -245,6 +248,9 @@ export default function Form() {
                                     {formCSVPrediction["predictedCategory"]}
                                 </td>
                                 <td>{formCSVPrediction["categoryLabel"]}</td>
+                                {formCSVPrediction["label"] && (
+                                    <td>{formCSVPrediction["label"]}</td>
+                                )}
                             </tr>
                         </tbody>
                     </table>
@@ -257,7 +263,7 @@ export default function Form() {
                                     <td>S.No.</td>
                                     <td>Predicted Category</td>
                                     <td>Category Label</td>
-                                    {formCSVActualMany && <td>Actual </td>}
+                                    {formCSVActualMany && <td>Actual Label</td>}
                                 </tr>
                             </thead>
                             <tbody>
