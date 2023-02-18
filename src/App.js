@@ -44,7 +44,7 @@ function App() {
 
         fetchMonitorState();
 
-        const monitorHandle = setInterval(fetchMonitorState, 5000);
+        const monitorHandle = setInterval(fetchMonitorState, 1000);
 
         return () => {
             clearInterval(monitorHandle);

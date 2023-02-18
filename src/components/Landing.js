@@ -2,9 +2,12 @@ import { monitoring } from "../redux/monitorSlice";
 import { useDispatch } from "react-redux";
 import { setCustomTesting } from "../redux/monitorSlice";
 import { Link } from "react-router-dom";
+import { resetTrafficData } from "../redux/trafficSlice";
 
 export default function Landing(props) {
     const dispatch = useDispatch();
+
+    dispatch(resetTrafficData());
 
     const startMonitoring = () => {
         fetch("http://localhost:3001/startMonitoring", {
@@ -29,8 +32,8 @@ export default function Landing(props) {
             <div>
                 <i>
                     <b>cicflowmeter</b>
-                </i>{" "}
-                is not running.
+                </i>
+                &nbsp;is not running.
             </div>
             <button onClick={startMonitoring}>Start Monitoring</button>
             <Link to={"/form"}>

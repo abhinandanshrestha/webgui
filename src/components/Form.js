@@ -141,16 +141,20 @@ export default function Form() {
                     </div>
                 </form>
                 {formPrediction && (
-                    <span>
-                        {formPrediction.attack ? (
-                            <p>Predicted: Attack</p>
-                        ) : (
-                            <p>Predicted: Normal</p>
-                        )}
-                        {formPrediction.attack && (
-                            <p>Attack Type: {formPrediction.class}</p>
-                        )}
-                    </span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Predicted Category</td>
+                                <td>Category Label</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{formPrediction["predictedCategory"]}</td>
+                                <td>{formPrediction["categoryLabel"]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 )}
             </div>
             <hr />
@@ -228,16 +232,22 @@ export default function Form() {
                     </div>
                 </form>
                 {formCSVPrediction && (
-                    <div>
-                        {formCSVPrediction.attack ? (
-                            <p>Predicted: Attack</p>
-                        ) : (
-                            <p>Predicted: Normal</p>
-                        )}
-                        {formCSVPrediction.attack && (
-                            <p>Attack Type: {formCSVPrediction.class}</p>
-                        )}
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Predicted Category</td>
+                                <td>Category Label</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {formCSVPrediction["predictedCategory"]}
+                                </td>
+                                <td>{formCSVPrediction["categoryLabel"]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 )}
                 {formCSVPredictionMany && (
                     <div>
