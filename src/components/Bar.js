@@ -29,7 +29,7 @@ export default function Bar() {
             layout={{
                 xaxis: { title: "Time (min)" },
                 yaxis: { title: "Traffic" },
-                title: `Attack ${category}`,
+                title: category,
             }}
         />
     ));
@@ -81,7 +81,7 @@ export default function Bar() {
                     data={[
                         {
                             x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                            y: categoryCount["Type11"],
+                            y: categoryCount["BENIGN"],
                             type: "bar",
                             name: "Normal Traffic",
                             marker: { color: "green" },

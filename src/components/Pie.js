@@ -72,7 +72,7 @@ export default function Pie() {
                     data={[
                         {
                             values: [
-                                totalCount["Type11"],
+                                totalCount["BENIGN"],
                                 totalCount["attack"],
                             ],
                             labels: ["Normal", "Attack"],

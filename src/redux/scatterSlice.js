@@ -16,7 +16,7 @@ export const scatterSlice = createSlice({
             let categories = Object.keys(data.payload[1]);
             let attackCategories = [];
             categories.forEach((category) => {
-                if (category !== "attack" && category !== "Type11") {
+                if (category !== "attack" && category !== "BENIGN") {
                     attackCategories.push(category);
                 }
             });
