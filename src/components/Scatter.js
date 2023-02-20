@@ -16,6 +16,26 @@ export default function Scatter() {
     const storedScrollPosition = useRef(scrollPosition);
     const dispatch = useDispatch();
 
+    const attackTypePlotsAll = (
+        <Plot
+            data={attackCategories.map((category) => ({
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                y: categoryCount[category],
+                type: "scatter",
+                mode: "lines+markers",
+                name: category,
+                line: {
+                    dash: "dashdot",
+                },
+            }))}
+            layout={{
+                xaxis: { title: "Time (min)" },
+                yaxis: { title: "Traffic" },
+                title: "Types of Attack",
+            }}
+        />
+    );
+
     const attackTypePlots = attackCategories.map((category, index) => (
         <Plot
             key={index}
@@ -114,6 +134,7 @@ export default function Scatter() {
                     }}
                 />
             )}
+            {attackTypePlotsAll && attackTypePlotsAll}
             {attackTypePlots && attackTypePlots}
         </div>
     ) : (
