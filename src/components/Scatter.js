@@ -19,7 +19,7 @@ export default function Scatter() {
     const attackTypePlotsAll = (
         <Plot
             data={attackCategories.map((category) => ({
-                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                x: Array.from({ length: 60 }, (_, i) => i + 1),
                 y: categoryCount[category],
                 type: "scatter",
                 mode: "lines+markers",
@@ -29,9 +29,17 @@ export default function Scatter() {
                 },
             }))}
             layout={{
-                xaxis: { title: "Time (min)" },
+                xaxis: {
+                    title: "Time (sec)",
+                    tickmode: "linear",
+                    dtick: 1,
+                    range: [1, 60],
+                },
                 yaxis: { title: "Traffic" },
                 title: "Types of Attack",
+            }}
+            style={{
+                width: "100%",
             }}
         />
     );
@@ -41,7 +49,7 @@ export default function Scatter() {
             key={index}
             data={[
                 {
-                    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    x: Array.from({ length: 60 }, (_, i) => i + 1),
                     y: categoryCount[category],
                     type: "scatter",
                     mode: "lines+markers",
@@ -52,9 +60,17 @@ export default function Scatter() {
                 },
             ]}
             layout={{
-                xaxis: { title: "Time (min)" },
+                xaxis: {
+                    title: "Time (sec)",
+                    tickmode: "linear",
+                    dtick: 1,
+                    range: [1, 60],
+                },
                 yaxis: { title: "Traffic" },
                 title: category,
+            }}
+            style={{
+                width: "100%",
             }}
         />
     ));
@@ -87,7 +103,7 @@ export default function Scatter() {
                 });
         };
 
-        const scatterHandle = setInterval(fetchScatterData, 5000);
+        const scatterHandle = setInterval(fetchScatterData, 1000);
         return () => {
             clearInterval(scatterHandle);
             if (container) {
@@ -105,7 +121,7 @@ export default function Scatter() {
                 <Plot
                     data={[
                         {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            x: Array.from({ length: 60 }, (_, i) => i + 1),
                             y: categoryCount["BENIGN"],
                             type: "scatter",
                             mode: "lines+markers",
@@ -116,7 +132,7 @@ export default function Scatter() {
                             marker: { color: "green" },
                         },
                         {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            x: Array.from({ length: 60 }, (_, i) => i + 1),
                             y: categoryCount["attack"],
                             type: "scatter",
                             mode: "lines+markers",
@@ -128,9 +144,17 @@ export default function Scatter() {
                         },
                     ]}
                     layout={{
-                        xaxis: { title: "Time (min)" },
+                        xaxis: {
+                            title: "Time (sec)",
+                            tickmode: "linear",
+                            dtick: 1,
+                            range: [1, 60],
+                        },
                         yaxis: { title: "Traffic" },
                         title: "Scatter Plot of Attack and Normal Traffic",
+                    }}
+                    style={{
+                        width: "100%",
                     }}
                 />
             )}

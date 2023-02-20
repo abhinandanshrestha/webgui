@@ -27,9 +27,17 @@ export default function Bar() {
                 },
             ]}
             layout={{
-                xaxis: { title: "Time (min)" },
+                xaxis: {
+                    title: "Time (min)",
+                    tickmode: "linear",
+                    dtick: 1,
+                    range: [1, 60],
+                },
                 yaxis: { title: "Traffic" },
                 title: category,
+            }}
+            style={{
+                width: "100%",
             }}
         />
     ));
@@ -95,9 +103,17 @@ export default function Bar() {
                         },
                     ]}
                     layout={{
-                        xaxis: { title: "Time (min)" },
+                        xaxis: {
+                            title: "Time (min)",
+                            tickmode: "linear",
+                            dtick: 1,
+                            range: [1, 60],
+                        },
                         yaxis: { title: "Traffic" },
                         title: "Bar Graph of Attack and Normal Data",
+                    }}
+                    style={{
+                        width: "100%",
                     }}
                 />
             )}

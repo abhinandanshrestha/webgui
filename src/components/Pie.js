@@ -82,6 +82,7 @@ export default function Pie() {
                     layout={{
                         title: "Pie Chart of Attack and Normal Data",
                     }}
+                    style={{ width: "100%" }}
                 />
             )}
             {attackCategories.length && (
@@ -97,6 +98,9 @@ export default function Pie() {
                     ]}
                     layout={{
                         title: "Pie Chart of different attack categories",
+                    }}
+                    style={{
+                        width: "100%",
                     }}
                 />
             )}
