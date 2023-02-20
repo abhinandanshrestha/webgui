@@ -9,6 +9,7 @@ export default function Bar() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
+    const colors = useSelector((state) => state.scatter.colors);
     const containerRef = useRef(null);
     const scrollPosition =
         useSelector((state) => state.scroll.scrollPositions.bar) || 0;
@@ -20,10 +21,11 @@ export default function Bar() {
             key={index}
             data={[
                 {
-                    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    x: Array.from({ length: 60 }, (_, i) => i + 1),
                     y: categoryCount[category],
                     type: "bar",
                     name: category,
+                    marker: { color: colors[category] },
                 },
             ]}
             layout={{
@@ -70,7 +72,7 @@ export default function Bar() {
                 });
         };
 
-        const scatterHandle = setInterval(fetchScatterData, 5000);
+        const scatterHandle = setInterval(fetchScatterData, 1000);
         return () => {
             clearInterval(scatterHandle);
             if (container) {
@@ -88,18 +90,18 @@ export default function Bar() {
                 <Plot
                     data={[
                         {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            x: Array.from({ length: 60 }, (_, i) => i + 1),
                             y: categoryCount["BENIGN"],
                             type: "bar",
                             name: "Normal Traffic",
-                            marker: { color: "green" },
+                            marker: { color: colors["BENIGN"] },
                         },
                         {
-                            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                            x: Array.from({ length: 60 }, (_, i) => i + 1),
                             y: categoryCount["attack"],
                             type: "bar",
                             name: "Attack Traffic",
-                            marker: { color: "red" },
+                            marker: { color: colors["attack"] },
                         },
                     ]}
                     layout={{

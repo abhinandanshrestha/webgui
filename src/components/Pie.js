@@ -9,6 +9,7 @@ export default function Pie() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
+    const colors = useSelector((state) => state.scatter.colors);
     const containerRef = useRef(null);
     const scrollPosition =
         useSelector((state) => state.scroll.scrollPositions.pie) || 0;
@@ -53,7 +54,7 @@ export default function Pie() {
                 });
         };
 
-        const scatterHandle = setInterval(fetchScatterData, 5000);
+        const scatterHandle = setInterval(fetchScatterData, 1000);
         return () => {
             clearInterval(scatterHandle);
             if (container) {
@@ -76,6 +77,9 @@ export default function Pie() {
                                 totalCount["attack"],
                             ],
                             labels: ["Normal", "Attack"],
+                            marker: {
+                                colors: [colors["BENIGN"], colors["attack"]],
+                            },
                             type: "pie",
                         },
                     ]}
@@ -93,6 +97,11 @@ export default function Pie() {
                                 (category) => totalCount[category]
                             ),
                             labels: attackCategories,
+                            marker: {
+                                colors: attackCategories.map(
+                                    (category) => colors[category]
+                                ),
+                            },
                             type: "pie",
                         },
                     ]}

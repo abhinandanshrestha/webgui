@@ -9,6 +9,7 @@ export default function Scatter() {
     const attackCategories = useSelector(
         (state) => state.scatter.attackCategories
     );
+    const colors = useSelector((state) => state.scatter.colors);
     const containerRef = useRef(null);
     const scrollPosition = useSelector(
         (state) => state.scroll.scrollPositions.scatter
@@ -27,6 +28,7 @@ export default function Scatter() {
                 line: {
                     dash: "dashdot",
                 },
+                marker: { color: colors[category] },
             }))}
             layout={{
                 xaxis: {
@@ -57,6 +59,7 @@ export default function Scatter() {
                     line: {
                         dash: "dashdot",
                     },
+                    marker: { color: colors[category] },
                 },
             ]}
             layout={{
@@ -129,7 +132,7 @@ export default function Scatter() {
                             line: {
                                 dash: "dashdot",
                             },
-                            marker: { color: "green" },
+                            marker: { color: colors["BENIGN"] },
                         },
                         {
                             x: Array.from({ length: 60 }, (_, i) => i + 1),
@@ -140,7 +143,7 @@ export default function Scatter() {
                             line: {
                                 dash: "dashdot",
                             },
-                            marker: { color: "red" },
+                            marker: { color: colors["attack"] },
                         },
                     ]}
                     layout={{
