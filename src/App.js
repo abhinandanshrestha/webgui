@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { monitoring, notMonitoring } from "./redux/monitorSlice";
-// import { updateForAttack, updateForNormal } from "./redux/logSlice";
+import { updateLog } from "./redux/logSlice";
 
 import Traffic from "./components/Traffic";
 import Sidenav from "./components/Sidenav";
@@ -24,6 +24,7 @@ function App() {
     const showMoreRowNumber = useSelector(
         (state) => state.traffic.showMoreRowNumber
     );
+    const logsLength = useSelector((state) => state.log.data.length);
 
     useEffect(() => {
         const fetchMonitorState = () => {
@@ -42,14 +43,31 @@ function App() {
                 });
         };
 
+        const fetchLogData = () => {
+            const url = `http://localhost:3001/getLogData?logCount=${encodeURIComponent(
+                logsLength
+            )}`;
+            fetch(url, {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    dispatch(updateLog(data.logs));
+                });
+        };
+
         fetchMonitorState();
 
         const monitorHandle = setInterval(fetchMonitorState, 1000);
+        const logHandle = setInterval(fetchLogData, 1000);
 
         return () => {
             clearInterval(monitorHandle);
+            clearInterval(logHandle);
         };
-    }, [dispatch]);
+    }, [dispatch, logsLength]);
 
     return monitorState || customTesting ? (
         <Router>

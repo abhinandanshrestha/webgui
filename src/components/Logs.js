@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateLog } from "../redux/logSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
 
 export default function Logs() {
@@ -28,30 +27,13 @@ export default function Logs() {
             }
             container.addEventListener("scroll", handleScroll);
         }
-        const fetchLogData = () => {
-            const url = `http://localhost:3001/getLogData?logCount=${encodeURIComponent(
-                logs.length
-            )}`;
-            fetch(url, {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((data) => {
-                    dispatch(updateLog(data.logs));
-                });
-        };
-
-        const logHandle = setInterval(fetchLogData, 5000);
 
         return () => {
-            clearInterval(logHandle);
             if (container) {
                 container.removeEventListener("scroll", handleScroll);
             }
         };
-    }, [dispatch, logs.length]);
+    }, [dispatch]);
 
     const logEntries = logs.map((l, index) => (
         <tr
