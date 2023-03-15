@@ -6,7 +6,7 @@ export default function Alert({ testData }) {
 
     return (
         <div className="alert">
-            <div className={lastTrafficType ? "attack" : "benign"}></div>
+            <div className={lastTrafficType ? "attack" : "benign"}>{lastTrafficType ? "NEW ATTACK TRAFFIC DETECTED!!!" : "ALL GOOD!!"}</div>
         </div>
     );
 }
