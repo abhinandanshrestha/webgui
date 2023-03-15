@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     data: [],
     lastTrafficType: 0,
-    attack: "attack",
 };
 
 export const logSlice = createSlice({
@@ -31,9 +30,14 @@ export const logSlice = createSlice({
         updateForNormal: (state) => {
             state.lastTrafficType = 0;
         },
+        resetLog: (state) => {
+            state.data = [];
+            state.lastTrafficType = 0;
+        },
     },
 });
 
-export const { updateLog, updateForAttack, updateForNormal } = logSlice.actions;
+export const { updateLog, updateForAttack, updateForNormal, resetLog } =
+    logSlice.actions;
 
 export default logSlice.reducer;

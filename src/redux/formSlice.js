@@ -88,7 +88,12 @@ cols.forEach((col) => {
 const initialState = {
     formData: fd,
     cols: cols,
-    formDataCSV: { file: "", line_no: "", csvformat: "cicids2017", allData: true },
+    formDataCSV: {
+        file: "",
+        line_no: "",
+        csvformat: "cicids2017",
+        allData: true,
+    },
     formPrediction: undefined,
     formCSVPrediction: undefined,
     formCSVPredictionMany: undefined,
@@ -138,6 +143,20 @@ export const formSlice = createSlice({
         clearFormCSVActualMany: (state) => {
             state.formCSVActualMany = undefined;
         },
+        resetForm: (state) => {
+            state.formData = fd;
+            state.cols = cols;
+            state.formDataCSV = {
+                file: "",
+                line_no: "",
+                csvformat: "cicids2017",
+                allData: true,
+            };
+            state.formPrediction = undefined;
+            state.formCSVPrediction = undefined;
+            state.formCSVPredictionMany = undefined;
+            state.formCSVActualMany = undefined;
+        },
     },
 });
 
@@ -153,6 +172,7 @@ export const {
     clearFormCSVPredictionMany,
     setFormCSVActualMany,
     clearFormCSVActualMany,
+    resetForm,
 } = formSlice.actions;
 
 export default formSlice.reducer;

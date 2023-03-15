@@ -2,12 +2,12 @@ import { monitoring } from "../redux/monitorSlice";
 import { useDispatch } from "react-redux";
 import { setCustomTesting } from "../redux/monitorSlice";
 import { Link } from "react-router-dom";
-import { resetTrafficData } from "../redux/trafficSlice";
+import { resetTraffic } from "../redux/trafficSlice";
 
 export default function Landing(props) {
     const dispatch = useDispatch();
 
-    dispatch(resetTrafficData());
+    dispatch(resetTraffic());
 
     const startMonitoring = () => {
         fetch("http://localhost:3001/startMonitoring", {

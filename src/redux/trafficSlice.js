@@ -18,15 +18,16 @@ export const trafficSlice = createSlice({
         updateShowMoreRowNumber: (state, rowNumber) => {
             state.showMoreRowNumber = rowNumber.payload;
         },
-        resetTrafficData: (state) => {
+        resetTraffic: (state) => {
             state.data = [];
             state.cols = [];
+            state.maxCols = 10;
             state.showMoreRowNumber = undefined;
         },
     },
 });
 
-export const { appendData, updateShowMoreRowNumber, resetTrafficData } =
+export const { appendData, updateShowMoreRowNumber, resetTraffic } =
     trafficSlice.actions;
 
 export default trafficSlice.reducer;

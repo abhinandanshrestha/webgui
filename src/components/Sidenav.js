@@ -4,8 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     monitoring,
     notMonitoring,
+    resetMonitor,
     setCustomTesting,
 } from "../redux/monitorSlice";
+import { resetTraffic } from "../redux/trafficSlice";
+import { resetLog } from "../redux/logSlice";
+import { resetForm } from "../redux/formSlice";
+import { resetScatter } from "../redux/scatterSlice";
+import { resetScroll } from "../redux/scrollSlice";
 
 function Sidenav() {
     const monitorState = useSelector((state) => state.monitor.value);
@@ -35,6 +41,12 @@ function Sidenav() {
             .then((data) => {
                 if (data.ok) {
                     dispatch(notMonitoring());
+                    dispatch(resetForm());
+                    dispatch(resetLog());
+                    dispatch(resetTraffic());
+                    dispatch(resetMonitor());
+                    dispatch(resetScatter());
+                    dispatch(resetScroll());
                 }
             });
     };

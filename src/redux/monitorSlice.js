@@ -18,10 +18,14 @@ export const monitorSlice = createSlice({
         setCustomTesting: (state, data) => {
             state.customTesting = data.payload;
         },
+        resetMonitor: (state) => {
+            state.value = false;
+            state.customTesting = false;
+        },
     },
 });
 
-export const { monitoring, notMonitoring, setCustomTesting } =
+export const { monitoring, notMonitoring, setCustomTesting, resetMonitor } =
     monitorSlice.actions;
 
 export default monitorSlice.reducer;
