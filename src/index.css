@@ -9,22 +9,22 @@
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 .container {
     height: 100vh;
@@ -155,7 +155,6 @@
     transition: 400ms ease;
     /* font-size: 10px; */
     cursor: pointer;
-    
 }
 .traffic button:hover {
     background: #002944;
@@ -172,7 +171,7 @@
     padding: 10px;
     width: 100%;
     text-align: center;
-    background:linear-gradient(to right,#111,rgb(56, 56, 56));
+    background: linear-gradient(to right, #111, rgb(56, 56, 56));
     color: #ffffff;
 }
 /* titleHolder end */
@@ -417,5 +416,12 @@
 .alert div {
     height: 100%;
     width: 100%;
+}
+.alert .attack,
+.alert .benign {
+    padding: 15px;
+    color: black;
+    font-weight: 900;
+    text-align: center;
 }
 /* Alert end */
