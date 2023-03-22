@@ -14,6 +14,7 @@ import Bar from "./components/Bar";
 import Form from "./components/Form";
 import Pie from "./components/Pie";
 import ShowMore from "./components/ShowMore";
+import { appendData } from "./redux/trafficSlice";
 
 function App() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
         (state) => state.traffic.showMoreRowNumber
     );
     const logsLength = useSelector((state) => state.log.data.length);
+    const trafficDataLength = useSelector((state) => state.traffic.data.length);
 
     useEffect(() => {
         const fetchMonitorState = () => {
@@ -40,6 +42,21 @@ function App() {
                     } else {
                         dispatch(notMonitoring());
                     }
+                });
+        };
+
+        const fetchTrafficData = () => {
+            const url = `http://localhost:3001/getTrafficData?dataCount=${encodeURIComponent(
+                trafficDataLength
+            )}`;
+            fetch(url, {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then(({ data, cols }) => {
+                    dispatch(appendData([data, cols]));
                 });
         };
 
@@ -61,13 +78,15 @@ function App() {
         fetchMonitorState();
 
         const monitorHandle = setInterval(fetchMonitorState, 1000);
+        const trafficHandle = setInterval(fetchTrafficData, 1000);
         const logHandle = setInterval(fetchLogData, 1000);
 
         return () => {
             clearInterval(monitorHandle);
+            clearInterval(trafficHandle);
             clearInterval(logHandle);
         };
-    }, [dispatch, logsLength]);
+    }, [dispatch, logsLength, trafficDataLength]);
 
     return monitorState || customTesting ? (
         <Router>

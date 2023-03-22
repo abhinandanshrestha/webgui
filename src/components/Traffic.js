@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { appendData, updateShowMoreRowNumber } from "../redux/trafficSlice";
+import { updateShowMoreRowNumber } from "../redux/trafficSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
 
 export default function Traffic() {
@@ -31,32 +31,12 @@ export default function Traffic() {
             container.addEventListener("scroll", handleScroll);
         }
 
-        const fetchTrafficData = () => {
-            const url = `http://localhost:3001/getTrafficData?dataCount=${encodeURIComponent(
-                trafficData.length
-            )}`;
-            fetch(url, {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then(({ data, cols }) => {
-                    dispatch(appendData([data, cols]));
-                });
-        };
-
-        fetchTrafficData();
-
-        const trafficHandle = setInterval(fetchTrafficData, 5000);
-
         return () => {
-            clearInterval(trafficHandle);
             if (container) {
                 container.removeEventListener("scroll", handleScroll);
             }
         };
-    }, [dispatch, trafficData.length]);
+    }, [dispatch]);
 
     const showMore = (e) => {
         const rowNumber = e.target.getAttribute("data-index");
