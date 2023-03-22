@@ -4,7 +4,6 @@ import { updateScrollPosition } from "../redux/scrollSlice";
 
 export default function Logs() {
     const logs = useSelector((state) => state.log.data);
-    const { attack } = useSelector((state) => state.log);
     const containerRef = useRef(null);
     const scrollPosition = useSelector(
         (state) => state.scroll.scrollPositions.log
@@ -37,7 +36,7 @@ export default function Logs() {
 
     const logEntries = logs.map((l, index) => (
         <tr
-            className={parseInt(l.split(",")[1]) !== 11 ? attack : "benign"}
+            className={parseInt(l.split(",")[1]) !== 11 ? "attack" : "benign"}
             key={index}
         >
             <td>{index}</td>

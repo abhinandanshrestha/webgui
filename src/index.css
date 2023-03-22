@@ -42,6 +42,31 @@
     height: 95vh;
 }
 
+/* table start */
+* table {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+    /* margin-top: 20px; */
+    background: white;
+    color: black;
+}
+* table thead {
+    position: sticky;
+    top: -1px;
+    background: #181818;
+    color: white;
+}
+* table tr {
+    border: 1px solid #ddd;
+}
+* table td,
+* table th {
+    padding: 10px;
+}
+/* table end */
+
 /* Landing start */
 .landing {
     height: 100vh;
@@ -351,50 +376,18 @@
     width: 100%;
     overflow: scroll;
 }
+.logs .attack {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+.logs .benign {
+    background-color: rgba(0, 255, 0, 0.2);
+}
 /* .logs button {
     position: fixed;
     top: 5%;
     right: 5%;
 } */
-.attack {
-    background: rgb(255, 80, 80);
-    color: #000;
-}
-.benign {
-    background: rgb(152, 255, 152);
-    color: #000;
-}
-
-.logs table tr {
-    border-color: #000;
-}
-
 /* Logs end */
-
-/* table start */
-* table {
-    width: 100%;
-    margin: auto;
-    text-align: center;
-    border-collapse: collapse;
-    /* margin-top: 20px; */
-    background: white;
-    color: black;
-}
-* table thead {
-    position: sticky;
-    top: -1px;
-    background: #181818;
-    color: white;
-}
-* table tr {
-    border: 1px solid #ddd;
-}
-* table td,
-* table th {
-    padding: 10px;
-}
-/* table end */
 
 /* Scatter start */
 .scatter {
@@ -425,3 +418,12 @@
     text-align: center;
 }
 /* Alert end */
+
+.attack {
+    background: rgb(255, 80, 80);
+    color: #000;
+}
+.benign {
+    background: rgb(152, 255, 152);
+    color: #000;
+}
