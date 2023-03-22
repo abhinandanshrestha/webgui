@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { monitoring, notMonitoring } from "./redux/monitorSlice";
-import { updateLog } from "./redux/logSlice";
 
 import Traffic from "./components/Traffic";
 import Sidenav from "./components/Sidenav";
@@ -14,7 +12,10 @@ import Bar from "./components/Bar";
 import Form from "./components/Form";
 import Pie from "./components/Pie";
 import ShowMore from "./components/ShowMore";
+import { monitoring, notMonitoring } from "./redux/monitorSlice";
 import { appendData } from "./redux/trafficSlice";
+import { updateLog } from "./redux/logSlice";
+import { updateScatter } from "./redux/scatterSlice";
 
 function App() {
     const dispatch = useDispatch();
@@ -75,16 +76,30 @@ function App() {
                 });
         };
 
+        const fetchScatterData = () => {
+            fetch("http://localhost:3001/get-scatterData", {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    dispatch(updateScatter(data.scatterData));
+                });
+        };
+
         fetchMonitorState();
 
         const monitorHandle = setInterval(fetchMonitorState, 1000);
         const trafficHandle = setInterval(fetchTrafficData, 1000);
         const logHandle = setInterval(fetchLogData, 1000);
+        const scatterHandle = setInterval(fetchScatterData, 1000);
 
         return () => {
             clearInterval(monitorHandle);
             clearInterval(trafficHandle);
             clearInterval(logHandle);
+            clearInterval(scatterHandle);
         };
     }, [dispatch, logsLength, trafficDataLength]);
 

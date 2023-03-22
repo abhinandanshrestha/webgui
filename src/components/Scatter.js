@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateScatter } from "../redux/scatterSlice";
 import { updateScrollPosition } from "../redux/scrollSlice";
 import Plot from "react-plotly.js";
 
@@ -94,21 +93,7 @@ export default function Scatter() {
             container.addEventListener("scroll", handleScroll);
         }
 
-        const fetchScatterData = () => {
-            fetch("http://localhost:3001/get-scatterData", {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((data) => {
-                    dispatch(updateScatter(data.scatterData));
-                });
-        };
-
-        const scatterHandle = setInterval(fetchScatterData, 1000);
         return () => {
-            clearInterval(scatterHandle);
             if (container) {
                 container.removeEventListener("scroll", handleScroll);
             }
