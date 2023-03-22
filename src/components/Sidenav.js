@@ -69,9 +69,6 @@ function Sidenav() {
                     <Link to="/">
                         <button>Traffic</button>
                     </Link>
-                    <Link to="/form">
-                        <button>Form</button>
-                    </Link>
                     <Link to="/logs">
                         <button>Logs</button>
                     </Link>
@@ -83,6 +80,9 @@ function Sidenav() {
                     </Link>
                     <Link to="/pie">
                         <button>Pie Chart</button>
+                    </Link>
+                    <Link to="/form">
+                        <button>Form</button>
                     </Link>
                 </div>
             )}
