@@ -54,12 +54,12 @@
 }
 * table thead {
     position: sticky;
-    top: -1px;
+    top: 50px;
     background: #181818;
     color: white;
 }
 * table tr {
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 * table td,
 * table th {
@@ -193,6 +193,8 @@
 
 /* titleHolder start */
 .titleHolder {
+    position: sticky;
+    top: 0;
     padding: 10px;
     width: 100%;
     text-align: center;
