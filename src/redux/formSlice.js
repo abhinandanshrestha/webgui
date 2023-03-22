@@ -98,6 +98,7 @@ const initialState = {
     formCSVPrediction: undefined,
     formCSVPredictionMany: undefined,
     formCSVActualMany: undefined,
+    formCSVConfusionMatrix: undefined,
 };
 
 export const formSlice = createSlice({
@@ -139,9 +140,45 @@ export const formSlice = createSlice({
         },
         setFormCSVActualMany: (state, actual) => {
             state.formCSVActualMany = actual.payload;
+            let cp = 0;
+            let wp = 0;
+            let tp = 0;
+            let tn = 0;
+            let fp = 0;
+            let fn = 0;
+            actual.payload.forEach((act, index) => {
+                if (state.formCSVPredictionMany[index][2] === act) {
+                    cp += 1;
+                } else {
+                    wp += 1;
+                }
+                if (act === "BENIGN" || act === "College_Normal") {
+                    if (
+                        state.formCSVPredictionMany[index][2] === "BENIGN" ||
+                        state.formCSVPredictionMany[index][2] ===
+                            "College_Normal"
+                    ) {
+                        tn += 1;
+                    } else {
+                        fp += 1;
+                    }
+                } else {
+                    if (
+                        state.formCSVPredictionMany[index][2] === "BENIGN" ||
+                        state.formCSVPredictionMany[index][2] ===
+                            "College_Normal"
+                    ) {
+                        fn += 1;
+                    } else {
+                        tp += 1;
+                    }
+                }
+            });
+            state.formCSVConfusionMatrix = { tp, tn, fp, fn, cp, wp };
         },
         clearFormCSVActualMany: (state) => {
             state.formCSVActualMany = undefined;
+            state.formCSVConfusionMatrix = undefined;
         },
         resetForm: (state) => {
             state.formData = fd;
@@ -156,6 +193,7 @@ export const formSlice = createSlice({
             state.formCSVPrediction = undefined;
             state.formCSVPredictionMany = undefined;
             state.formCSVActualMany = undefined;
+            state.formCSVConfusionMatrix = undefined;
         },
     },
 });

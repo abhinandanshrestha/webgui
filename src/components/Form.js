@@ -24,6 +24,7 @@ export default function Form() {
         formCSVPrediction,
         formCSVPredictionMany,
         formCSVActualMany,
+        formCSVConfusionMatrix,
     } = useSelector((state) => state.form);
     const scrollPosition = useSelector(
         (state) => state.scroll.scrollPositions.form
@@ -256,33 +257,75 @@ export default function Form() {
                     </table>
                 )}
                 {formCSVPredictionMany && (
-                    <div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>S.No.</td>
-                                    <td>Predicted Category</td>
-                                    <td>Category Label</td>
-                                    {formCSVActualMany && <td>Actual Label</td>}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {formCSVPredictionMany.map(
-                                    (prediction, index) => (
-                                        <tr key={index}>
-                                            <td>{index + 1}</td>
-                                            <td>{prediction[1]}</td>
-                                            <td>{prediction[2]}</td>
-                                            {formCSVActualMany && (
-                                                <td>
-                                                    {formCSVActualMany[index]}
-                                                </td>
-                                            )}
-                                        </tr>
-                                    )
-                                )}
-                            </tbody>
-                        </table>
+                    <div className="predictionMany">
+                        {formCSVConfusionMatrix && (
+                            <div className="confusionData">
+                                <div className="confusionMatrix">
+                                    <div className="tp">
+                                        True Positive ={" "}
+                                        {formCSVConfusionMatrix.tp}
+                                    </div>
+                                    <div className="fn">
+                                        False Negative ={" "}
+                                        {formCSVConfusionMatrix.fn}
+                                    </div>
+                                    <div className="fp">
+                                        False Positive ={" "}
+                                        {formCSVConfusionMatrix.fp}
+                                    </div>
+                                    <div className="tn">
+                                        True Negative ={" "}
+                                        {formCSVConfusionMatrix.tn}
+                                    </div>
+                                    <h4>Confusion Matrix</h4>
+                                </div>
+                                <div className="confusionMatrix">
+                                    <div className="tp">
+                                        Correct Predictions ={" "}
+                                        {formCSVConfusionMatrix.cp}
+                                    </div>
+                                    <div className="fn">
+                                        Wrong Predictions ={" "}
+                                        {formCSVConfusionMatrix.wp}
+                                    </div>
+                                    <h4>Prediction Counts</h4>
+                                </div>
+                            </div>
+                        )}
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>S.No.</td>
+                                        <td>Predicted Category</td>
+                                        <td>Category Label</td>
+                                        {formCSVActualMany && (
+                                            <td>Actual Label</td>
+                                        )}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {formCSVPredictionMany.map(
+                                        (prediction, index) => (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{prediction[1]}</td>
+                                                <td>{prediction[2]}</td>
+                                                {formCSVActualMany && (
+                                                    <td>
+                                                        {
+                                                            formCSVActualMany[
+                                                                index
+                                                            ]
+                                                        }
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        )
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
             </div>
