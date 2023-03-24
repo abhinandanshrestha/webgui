@@ -288,7 +288,15 @@ export default function Form() {
                                         Wrong Predictions ={" "}
                                         {formCSVConfusionMatrix.wp}
                                     </div>
-                                    <h4>Prediction Counts</h4>
+                                    <h4 style={{ flex: "100%", textAlign: 'center' }}>
+                                        Prediction Counts
+                                    </h4>
+                                    <div className="tn">
+                                        Accuracy ={" "}
+                                        {formCSVConfusionMatrix.cp /
+                                            (formCSVConfusionMatrix.wp +
+                                                formCSVConfusionMatrix.cp)}
+                                    </div>
                                 </div>
                             </div>
                         )}
